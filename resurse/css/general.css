@@ -1,8 +1,14 @@
 body{
-    --culoare-fundal: bisque;
-    --culoare-contur: purple;
+    --culoare-fundal: #f8f1e7;
+    --culoare-secundara: #f3dfe6;
+    --culoare-contur: #6d214f;
+    --culoare-text: #2f2f2f;
+    --culoare-highlight: #c9a227;
+
     --margine-pagina: 120px;
+
     background-color: var(--culoare-fundal);
+    color: var(--culoare-text);
 }
 
 main{
@@ -25,9 +31,11 @@ main{
 }
 
 #grid-pagina > *{
-    border: 1px solid var(--culoare-contur);
+ border: 1px solid var(--culoare-contur);
     box-shadow: 0px 0px 5px var(--culoare-contur);
     padding: 10px;
+    color: var(--culoare-text);
+    background-color: var(--culoare-secundara);
 }
 
 figure{
@@ -74,35 +82,43 @@ figure > img{
 }
 
 @media screen and (max-width:1200px) {
-    body {
+
+    html{
+        font-size: 17px;
+    }
+
+    body{
         --margine-pagina: 80px;
     }
 
     #grid-pagina{
-        display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
             "welcome welcome"
-            "promotii promotii"
+            "promotii anunturi"
             "fig1 orar"
             "fig2 orar"
-            "fig3 orar"
-            "produse produse"
-            "index-intrebari index-intrebari";
+            "fig3 produse"
+            "index-intrebari produse";
     }
 }
 
 @media screen and (max-width:700px) {
-    body {
+
+    html{
+        font-size: 16px;
+    }
+
+    body{
         --margine-pagina: 50px;
     }
 
     #grid-pagina{
-        display: grid;
         grid-template-columns: 1fr;
         grid-template-areas:
             "welcome"
             "promotii"
+            "anunturi"
             "orar"
             "fig1"
             "fig2"
@@ -110,4 +126,229 @@ figure > img{
             "produse"
             "index-intrebari";
     }
+}
+
+/* ============================= */
+/* CERINTA 3 */
+/* ============================= */
+.container-iframe{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0;
+    margin-top: 1rem;
+}
+
+.container-iframe iframe{
+    width: 100%;
+    max-width: 700px;
+    min-width: 300px;
+    min-height: 320px;
+    border: 3px solid var(--culoare-contur);
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.taburi-iframe{
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.taburi-iframe a{
+    display: block;
+    width: 110px;
+    padding: 0.45rem 0.4rem;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1.1;
+    color: var(--culoare-contur);
+    background-color: var(--culoare-secundara);
+    border: 2px solid var(--culoare-contur);
+    border-left: none;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.taburi-iframe a:hover{
+    background-color: var(--culoare-highlight);
+    color: white;
+    transform: translateX(6px);
+}
+
+.taburi-iframe a:active{
+    transform: scale(0.95);
+}
+
+/* responsive */
+@media screen and (max-width:700px){
+
+    .container-iframe{
+        flex-direction: column-reverse;
+    }
+
+    .taburi-iframe{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .taburi-iframe a{
+        width: auto;
+        border-left: 2px solid var(--culoare-contur);
+        border-radius: 0.5rem;
+    }
+}
+
+/* ============================= */
+/* CERINTA 4 - STILIZARE TABEL */
+/* ============================= */
+
+.container-tabel{
+    width: 100%;
+    overflow-x: auto;
+}
+
+#tab-orar{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: center;
+}
+
+#tab-orar caption{
+    caption-side: bottom;
+    padding-top: 0.6rem;
+    font-weight: bold;
+    color: var(--culoare-contur);
+}
+
+#tab-orar th,
+#tab-orar td{
+    border: 1px solid var(--culoare-contur);
+    padding: 0.6rem;
+    transition: background-color 0.75s ease, font-size 0.75s ease;
+}
+
+#tab-orar thead th{
+    border: 3px solid var(--culoare-contur);
+    background-color: var(--culoare-highlight);
+    color: white;
+}
+
+#tab-orar tbody tr:nth-child(odd){
+    box-shadow: inset 0 0 0 1000px rgba(109, 33, 79, 0.08);
+    color: var(--culoare-contur);
+}
+
+#tab-orar tbody tr:nth-child(even){
+    box-shadow: inset 0 0 0 1000px rgba(201, 162, 39, 0.10);
+    color: var(--culoare-text);
+}
+
+#tab-orar tbody tr:hover td{
+    background-color: var(--culoare-highlight);
+    color: white;
+    font-size: 1.2em;
+}
+
+#tab-orar tfoot td{
+    font-style: italic;
+    font-weight: bold;
+    background-color: var(--culoare-secundara);
+}
+
+@media screen and (max-width:700px){
+    .container-tabel{
+        overflow-x: auto;
+    }
+
+    #tab-orar{
+        min-width: 700px;
+    }
+}
+
+/* ============================= */
+/* CERINTA 5 - LINK TOP */
+/* ============================= */
+
+#link-top{
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 3.2rem;
+    height: 3.2rem;
+    display: block;
+    text-decoration: none;
+    opacity: 0.6;
+    z-index: 1000;
+    transform: rotate(45deg);
+    transition: opacity 0.4s ease;
+}
+
+#link-top::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--culoare-secundara);
+    border: 2px solid var(--culoare-contur);
+    border-top-left-radius: 0.9rem;
+    border-top-right-radius: 0.9rem;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.6);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+#link-top:hover{
+    opacity: 1;
+}
+
+#link-top:hover::before{
+    background-color: var(--culoare-highlight);
+    box-shadow: inset 0 0 14px rgba(255,255,255,0.85);
+}
+
+#sageata{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--culoare-contur);
+    font-size: 1.6rem;
+    font-weight: bold;
+    transform: rotate(-45deg);
+    transition: transform 0.4s ease, color 0.4s ease;
+    z-index: 1;
+}
+
+#link-top:hover #sageata{
+    transform: rotate(-45deg) scale(1.2);
+    color: white;
+}
+
+/* tooltip */
+#link-top::after{
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 120%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg) scale(0);
+    transform-origin: right center;
+    background-color: var(--culoare-contur);
+    color: white;
+    padding: 0.35rem 0.6rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+#link-top:hover::after{
+    opacity: 1;
+    transform: translateY(-50%) rotate(-45deg) scale(1);
 }
