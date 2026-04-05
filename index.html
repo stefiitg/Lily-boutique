@@ -21,41 +21,70 @@
         <link rel ="stylesheet" href="./resurse/css/general.css" type="text/css"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./resurse/css/meniu.css">
     </head>
     <body>
         <header id="top">
-       <header>
+       
         <h1> Lily boutique</h1>
          <img src="./resurse/imagini/sigla.png" alt="single"/>
-        <nav>
-  <ul class="meniu">
-    <li>
-      <a href="#welcome">Acasa</a>
-      <ul>
-        <li><a href="#welcome">welcome</a></li>
-        <li><a href="#promotii">promotii</a></li>
-        <li><a href="#noutati">noutati</a></li>
-        <li><a href="#orar">orar</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#locatii">Despre</a>
-      <ul>
-        <li><a href="#locatii">locatii</a></li>
-        <li><a href="#galerie-statica">galerie</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#rochii">Produse</a>
-      <ul>
-        <li><a href="#rochii">rochii</a></li>
-        <li><a href="#camasi">camasi</a></li>
-        <li><a href="#esarfe">esarfe</a></li>
-        <li><a href="#bluze">bluze</a></li>
-      </ul>
-    </li>
-  </ul>
+       <nav class="nav-principal">
+    <label id="hamburger" for="ch-menu">
+        <i class="fa-solid fa-bars"></i>
+    </label>
+    <input id="ch-menu" type="checkbox">
+
+    <ul class="meniu">
+        <li>
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Acasă</span>
+            </a>
+            <ul>
+                <li><a href="#welcome">Welcome</a></li>
+                <li><a href="#promotii">Promoții</a></li>
+                <li><a href="#noutati">Noutăți</a></li>
+                <li><a href="#orar">Orar</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-shirt"></i>
+                <span>Produse</span>
+            </a>
+            <ul>
+                <li><a href="#rochii">Rochii</a></li>
+                <li><a href="#camasi">Cămăși</a></li>
+                <li><a href="#esarfe">Eșarfe</a></li>
+                <li><a href="#bluze">Bluze</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-images"></i>
+                <span>Galerii</span>
+            </a>
+            <ul>
+                <li><a href="galerie-statica.html">Galerie statică</a></li>
+                <li><a href="galerie-dinamica.html">Galerie dinamică</a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Despre</span>
+            </a>
+            <ul>
+                <li><a href="despre.html">Despre noi</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </li>
+    </ul>
 </nav>
        </header>
 

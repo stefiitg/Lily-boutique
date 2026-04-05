@@ -1,0 +1,215 @@
+ul.meniu > li > a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-decoration: none;
+}
+
+.nav-principal {
+  position: relative;
+  z-index: 1000;
+}
+
+#hamburger,
+#ch-menu {
+  display: none;
+}
+
+ul.meniu,
+ul.meniu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.meniu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  background-color: var(--culoare-meniu);
+}
+
+ul.meniu > li {
+  position: relative;
+  min-width: var(--latime-buton-meniu);
+  text-align: center;
+}
+
+ul.meniu > li > a {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 0.5rem;
+  height: var(--inaltime-meniu);
+  color: var(--culoare-text-meniu);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+ul.meniu > li > a::before {
+  content: "";
+  position: absolute;
+  inset: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid #ffffff;
+  -webkit-box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
+          box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.35);
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transition: -webkit-transform 0.45s ease;
+  transition: -webkit-transform 0.45s ease;
+  transition: transform 0.45s ease;
+  transition: transform 0.45s ease, -webkit-transform 0.45s ease;
+  z-index: -1;
+}
+
+ul.meniu > li > a i {
+  font-size: 1.1rem;
+}
+
+ul.meniu > li:hover > a::before {
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+}
+
+ul.meniu > li > ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  background-color: var(--culoare-submeniu);
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+  -webkit-transition: -webkit-transform 0.35s ease;
+  transition: -webkit-transform 0.35s ease;
+  transition: transform 0.35s ease;
+  transition: transform 0.35s ease, -webkit-transform 0.35s ease;
+  border: 1px solid var(--culoare-contur);
+}
+
+ul.meniu > li > ul > li > a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: var(--culoare-text);
+  -webkit-text-decoration: underline double transparent;
+          text-decoration: underline double transparent;
+  text-underline-offset: 0.2rem;
+  text-decoration-thickness: 0.14rem;
+  background-color: var(--culoare-submeniu);
+  -webkit-transition: background-color 0.3s ease, -webkit-text-decoration-color 0.3s ease;
+  transition: background-color 0.3s ease, -webkit-text-decoration-color 0.3s ease;
+  transition: background-color 0.3s ease, text-decoration-color 0.3s ease;
+  transition: background-color 0.3s ease, text-decoration-color 0.3s ease, -webkit-text-decoration-color 0.3s ease;
+}
+
+ul.meniu > li > ul > li > a:hover {
+  background-color: var(--culoare-highlight);
+  color: white;
+  -webkit-text-decoration-color: white;
+          text-decoration-color: white;
+}
+
+ul.meniu > li:hover > ul {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+@media screen and (max-width: 1000px) {
+  ul.meniu > li {
+    min-width: 70px;
+  }
+  ul.meniu > li > a {
+    font-size: 0.9rem;
+  }
+  ul.meniu > li > a span {
+    display: none;
+  }
+  ul.meniu > li > a i {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  #hamburger {
+    display: block;
+    width: var(--inaltime-meniu);
+    height: var(--inaltime-meniu);
+    line-height: var(--inaltime-meniu);
+    text-align: center;
+    font-size: 1.4rem;
+    color: white;
+    background-color: var(--culoare-meniu);
+    cursor: pointer;
+    margin: 0.5rem;
+  }
+  ul.meniu {
+    display: none;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 100%;
+    background-color: var(--culoare-meniu);
+  }
+  ul.meniu > li {
+    width: 100%;
+    min-width: unset;
+  }
+  ul.meniu > li > a {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    padding-left: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  ul.meniu > li > a span {
+    display: inline;
+  }
+  ul.meniu > li:first-child > a span {
+    display: none;
+  }
+  ul.meniu > li:first-child > a i {
+    display: inline-block;
+  }
+  ul.meniu > li > ul {
+    position: static;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    display: none;
+    border: none;
+    -webkit-clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    -webkit-transition: -webkit-clip-path 0.4s ease;
+    transition: -webkit-clip-path 0.4s ease;
+    transition: clip-path 0.4s ease;
+    transition: clip-path 0.4s ease, -webkit-clip-path 0.4s ease;
+  }
+  ul.meniu > li:hover > ul {
+    display: block;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  ul.meniu > li > ul > li > a {
+    padding-left: 2rem;
+  }
+  #ch-menu:checked + ul.meniu {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+/*# sourceMappingURL=meniu.css.map */

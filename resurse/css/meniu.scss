@@ -1,0 +1,191 @@
+$culoare-contur-deschis: #ffffff;
+$culoare-overlay: rgba(255,255,255,0.12);
+$umbra-overlay: inset 0 0 12px rgba(255,255,255,0.35);
+
+%link-baza{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-principal{
+  position: relative;
+  z-index: 1000;
+}
+
+#hamburger,
+#ch-menu{
+  display: none;
+}
+
+ul.meniu,
+ul.meniu ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.meniu{
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background-color: var(--culoare-meniu);
+
+  > li{
+    position: relative;
+    min-width: var(--latime-buton-meniu);
+    text-align: center;
+
+    > a{
+      @extend %link-baza;
+      justify-content: center;
+      gap: 0.5rem;
+      height: var(--inaltime-meniu);
+      color: var(--culoare-text-meniu);
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+
+      &::before{
+        content: "";
+        position: absolute;
+        inset: 0.3rem;
+        background-color: $culoare-overlay;
+        border: 1px solid $culoare-contur-deschis;
+        box-shadow: $umbra-overlay;
+        transform: scaleY(0);
+        transform-origin: center;
+        transition: transform 0.45s ease;
+        z-index: -1;
+      }
+
+      i{
+        font-size: 1.1rem;
+      }
+    }
+
+    &:hover > a::before{
+      transform: scaleY(1);
+    }
+
+    > ul{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 100%;
+      background-color: var(--culoare-submeniu);
+      transform: scale(0);
+      transform-origin: top left;
+      transition: transform 0.35s ease;
+      border: 1px solid var(--culoare-contur);
+
+      > li > a{
+        display: block;
+        padding: 0.75rem 1rem;
+        color: var(--culoare-text);
+        text-decoration: underline double transparent;
+        text-underline-offset: 0.2rem;
+        text-decoration-thickness: 0.14rem;
+        background-color: var(--culoare-submeniu);
+        transition: background-color 0.3s ease, text-decoration-color 0.3s ease;
+
+        &:hover{
+          background-color: var(--culoare-highlight);
+          color: white;
+          text-decoration-color: white;
+        }
+      }
+    }
+
+    &:hover > ul{
+      transform: scale(1);
+    }
+  }
+}
+
+@media screen and (max-width: 1000px){
+  ul.meniu{
+    > li{
+      min-width: 70px;
+
+      > a{
+        font-size: 0.9rem;
+
+        span{
+          display: none;
+        }
+
+        i{
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px){
+  #hamburger{
+    display: block;
+    width: var(--inaltime-meniu);
+    height: var(--inaltime-meniu);
+    line-height: var(--inaltime-meniu);
+    text-align: center;
+    font-size: 1.4rem;
+    color: white;
+    background-color: var(--culoare-meniu);
+    cursor: pointer;
+    margin: 0.5rem;
+  }
+
+  ul.meniu{
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--culoare-meniu);
+
+    > li{
+      width: 100%;
+      min-width: unset;
+
+      > a{
+        justify-content: flex-start;
+        padding-left: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.2);
+
+        span{
+          display: inline;
+        }
+      }
+
+      &:first-child > a span{
+        display: none;
+      }
+
+      &:first-child > a i{
+        display: inline-block;
+      }
+
+      > ul{
+        position: static;
+        transform: scale(1);
+        display: none;
+        border: none;
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+        transition: clip-path 0.4s ease;
+      }
+
+      &:hover > ul{
+        display: block;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+
+      > ul > li > a{
+        padding-left: 2rem;
+      }
+    }
+  }
+
+  #ch-menu:checked + ul.meniu{
+    display: flex;
+  }
+}

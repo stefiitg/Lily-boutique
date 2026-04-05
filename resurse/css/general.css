@@ -352,3 +352,345 @@ figure > img{
     opacity: 1;
     transform: translateY(-50%) rotate(-45deg) scale(1);
 }
+
+/* ============================= */
+/* ETAPA 3 - VARIANTE MENIU */
+/* ============================= */
+
+body{
+    --inaltime-meniu: 3.2rem;
+    --latime-buton-meniu: 180px;
+    --culoare-meniu: var(--culoare-contur);
+    --culoare-meniu-hover: var(--culoare-highlight);
+    --culoare-submeniu: var(--culoare-secundara);
+    --culoare-text-meniu: white;
+    --culoare-contur-deschis: #ffffff;
+}
+
+.nav-principal{
+    position: relative;
+    z-index: 1000;
+}
+
+#hamburger,
+#ch-menu{
+    display: none;
+}
+
+ul.meniu,
+ul.meniu ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul.meniu{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    background-color: var(--culoare-meniu);
+}
+
+ul.meniu > li{
+    position: relative;
+    min-width: var(--latime-buton-meniu);
+    text-align: center;
+}
+
+ul.meniu > li > a{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    height: var(--inaltime-meniu);
+    color: var(--culoare-text-meniu);
+    text-decoration: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+ul.meniu > li > a::before{
+    content: "";
+    position: absolute;
+    inset: 0.3rem;
+    background-color: rgba(255,255,255,0.12);
+    border: 1px solid var(--culoare-contur-deschis);
+    box-shadow: inset 0 0 12px rgba(255,255,255,0.35);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.45s ease;
+    z-index: -1;
+}
+
+ul.meniu > li:hover > a::before{
+    transform: scaleY(1);
+}
+
+ul.meniu > li > a i{
+    font-size: 1.1rem;
+}
+
+ul.meniu > li > ul{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 100%;
+    background-color: var(--culoare-submeniu);
+    transform: scale(0);
+    transform-origin: top left;
+    transition: transform 0.35s ease;
+    border: 1px solid var(--culoare-contur);
+}
+
+ul.meniu > li:hover > ul{
+    transform: scale(1);
+}
+
+ul.meniu > li > ul > li > a{
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--culoare-text);
+    text-decoration: none;
+    background-color: var(--culoare-submeniu);
+    transition: background-color 0.3s ease, text-decoration-color 0.3s ease;
+    text-decoration: underline double transparent;
+    text-underline-offset: 0.2rem;
+    text-decoration-thickness: 0.14rem;
+}
+
+ul.meniu > li > ul > li > a:hover{
+    background-color: var(--culoare-highlight);
+    color: white;
+    text-decoration-color: white;
+}
+
+/* ecran mediu */
+@media screen and (max-width: 1000px){
+    ul.meniu > li{
+        min-width: 70px;
+    }
+
+    ul.meniu > li > a{
+        font-size: 0.9rem;
+    }
+
+    ul.meniu > li > a span{
+        display: none;
+    }
+
+    ul.meniu > li > a i{
+        font-size: 1.3rem;
+    }
+}
+
+/* ecran mic - hamburger */
+@media screen and (max-width: 700px){
+    #hamburger{
+        display: block;
+        width: var(--inaltime-meniu);
+        height: var(--inaltime-meniu);
+        line-height: var(--inaltime-meniu);
+        text-align: center;
+        font-size: 1.4rem;
+        color: white;
+        background-color: var(--culoare-meniu);
+        cursor: pointer;
+        margin: 0.5rem;
+    }
+
+    ul.meniu{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--culoare-meniu);
+    }
+
+    #ch-menu:checked + ul.meniu{
+        display: flex;
+    }
+
+    ul.meniu > li{
+        width: 100%;
+        min-width: unset;
+    }
+
+    ul.meniu > li > a{
+        justify-content: flex-start;
+        padding-left: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    ul.meniu > li:first-child > a span{
+        display: none;
+    }
+
+    ul.meniu > li:first-child > a i{
+        display: inline-block;
+    }
+
+    ul.meniu > li > a span{
+        display: inline;
+    }
+
+    ul.meniu > li > ul{
+        position: static;
+        transform: scale(1);
+        display: none;
+        border: none;
+        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+        transition: clip-path 0.4s ease;
+    }
+
+    ul.meniu > li:hover > ul{
+        display: block;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    ul.meniu > li > ul > li > a{
+        padding-left: 2rem;
+    }
+}
+/* ============================= */
+/* ETAPA 3 - CSS PRINTARE */
+/* ============================= */
+
+@media print {
+
+    /* margini diferite pentru pagini stânga/dreapta */
+    @page:left {
+        margin-left: 3cm;
+        margin-right: 1cm;
+        margin-top: 2cm;
+        margin-bottom: 2cm;
+    }
+
+    @page:right {
+        margin-left: 1cm;
+        margin-right: 3cm;
+        margin-top: 2cm;
+        margin-bottom: 2cm;
+    }
+
+    /* toate linkurile ca text normal */
+    a,
+    a:link,
+    a:visited {
+        color: black !important;
+        text-decoration: none !important;
+    }
+
+    /* ascundem media si elemente dependente */
+    img,
+    picture,
+    figure,
+    figcaption,
+    video,
+    iframe,
+    .container-iframe,
+    #link-top,
+    #sageata {
+        display: none !important;
+    }
+
+    /* gridul devine block */
+    #grid-pagina {
+        display: block !important;
+    }
+
+    #grid-pagina > * {
+        display: block !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* h1 centrat */
+    h1 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    /* meniul in lista verticala fara submeniuri */
+    .nav-principal {
+        display: block !important;
+        margin-bottom: 1rem;
+        page-break-after: always;
+    }
+
+    #hamburger,
+    #ch-menu {
+        display: none !important;
+    }
+
+    ul.meniu {
+        display: block !important;
+        background: none !important;
+    }
+
+    ul.meniu > li {
+        display: list-item !important;
+        list-style: disc;
+        margin-left: 1.5rem;
+        min-width: unset !important;
+    }
+
+    ul.meniu > li > a {
+        display: inline !important;
+        color: black !important;
+        background: none !important;
+        border: none !important;
+        text-decoration: none !important;
+    }
+
+    ul.meniu > li > a::before,
+    ul.meniu > li > a::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    ul.meniu > li > ul {
+        display: none !important;
+    }
+
+    /* footer pe pagina separata */
+    footer {
+        page-break-before: always;
+    }
+
+    /* banner doar la print */
+    #banner-print {
+        display: block !important;
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 2rem;
+        text-align: center;
+        border: 4px inset black;
+        padding: 0.6rem;
+        font-weight: bold;
+    }
+
+    /* watermark */
+    #watermark-print {
+        position: fixed;
+        right: 0.5cm;
+        bottom: 0.5cm;
+        width: 4cm;
+        height: 1cm;
+        border: 3px solid black;
+        border-radius: 0.3cm;
+        text-align: center;
+        font-weight: bold;
+        opacity: 0.4;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.1;
+        background: white;
+    }
+}
+
+/* in afara printului, le ascundem */
+#banner-print,
+#watermark-print {
+    display: none;
+}
