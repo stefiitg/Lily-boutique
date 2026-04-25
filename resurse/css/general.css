@@ -15,19 +15,33 @@ main{
     margin-left: var(--margine-pagina);
     margin-right: var(--margine-pagina);
 }
+/*
+#grid-pagina{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+        "welcome welcome welcome welcome"
+        "orar orar produse produse"
+        "calendar calendar produse produse"
+        "utilizatori calendar produse produse"
+        "utilizatori anunturi anunturi date"
+      ;
+}*/
 
 #grid-pagina{
     display: grid;
     gap: 10px;
-    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr ;
     grid-template-areas:
-        "welcome welcome welcome"
+        "welcome welcome welcome "
         "promotii promotii anunturi"
         "fig1 orar orar"
         "fig2 orar orar"
         "fig3 orar orar"
         "produse produse produse"
-        "index-intrebari index-intrebari index-intrebari";
+        "index-intrebari index-intrebari index-intrebari"
+      ;
 }
 
 #grid-pagina > *{
@@ -85,6 +99,7 @@ figure > img{
 
     html{
         font-size: 17px;
+         transition: font-size 0.3s ease;
     }
 
     body{
@@ -105,8 +120,13 @@ figure > img{
 
 @media screen and (max-width:700px) {
 
+      *{
+        animation: none !important;
+        transition: none !important;
+    }
     html{
         font-size: 16px;
+         
     }
 
     body{
@@ -133,10 +153,11 @@ figure > img{
 /* ============================= */
 .container-iframe{
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: flex-start;
     gap: 0;
     margin-top: 1rem;
+    width: 600px;
 }
 
 .container-iframe iframe{
@@ -145,17 +166,22 @@ figure > img{
     min-width: 300px;
     min-height: 320px;
     border: 3px solid var(--culoare-contur);
-    background-color: white;
+    background-color: var(--culoare-fundal);
     box-sizing: border-box;
+    position: relative;
+     z-index: 1;  /*aduce vizual vieoclipul in fata tab urilor  */
 }
 
 .taburi-iframe{
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    align-items: flex-start;
+    gap: 0;
+     margin-left: -15px;
+    
 }
 
-.taburi-iframe a{
+.taburi-iframe > a{
     display: block;
     width: 110px;
     padding: 0.45rem 0.4rem;
@@ -166,16 +192,15 @@ figure > img{
     color: var(--culoare-contur);
     background-color: var(--culoare-secundara);
     border: 2px solid var(--culoare-contur);
-    border-left: none;
     border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
-
+    border-left: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.taburi-iframe a:hover{
+.taburi-iframe > a:hover{
     background-color: var(--culoare-highlight);
-    color: white;
+    color: var(--culoare-contur);
     transform: translateX(6px);
 }
 
@@ -248,6 +273,7 @@ figure > img{
     color: var(--culoare-text);
 }
 
+
 #tab-orar tbody tr:hover td{
     background-color: var(--culoare-highlight);
     color: white;
@@ -273,86 +299,80 @@ figure > img{
 /* ============================= */
 /* CERINTA 5 - LINK TOP */
 /* ============================= */
-
-#link-top{
+/* Containerul principal: Poziție fixă, rotit 45deg */
+/* Containerul butonului */
+#link-top {
     position: fixed;
-    right: 1.5rem;
-    bottom: 1.5rem;
-    width: 3.2rem;
-    height: 3.2rem;
-    display: block;
-    text-decoration: none;
-    opacity: 0.6;
-    z-index: 1000;
-    transform: rotate(45deg);
-    transition: opacity 0.4s ease;
-}
-
-#link-top::before{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: var(--culoare-secundara);
-    border: 2px solid var(--culoare-contur);
-    border-top-left-radius: 0.9rem;
-    border-top-right-radius: 0.9rem;
-    box-shadow: inset 0 0 10px rgba(255,255,255,0.6);
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-#link-top:hover{
-    opacity: 1;
-}
-
-#link-top:hover::before{
-    background-color: var(--culoare-highlight);
-    box-shadow: inset 0 0 14px rgba(255,255,255,0.85);
-}
-
-#sageata{
-    position: absolute;
-    inset: 0;
+    right: 2rem;
+    bottom: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--culoare-contur);
-    font-size: 1.6rem;
-    font-weight: bold;
-    transform: rotate(-45deg);
-    transition: transform 0.4s ease, color 0.4s ease;
-    z-index: 1;
+    text-decoration: none;
+    opacity: 0.6; /* Semi-transparent */
+    z-index: 1000;
+    transition: opacity 0.5s ease; /* Tranziție pentru opacitate */
 }
 
-#link-top:hover #sageata{
-    transform: rotate(-45deg) scale(1.2);
+
+#link-top::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: white;
+    border: 2px solid var(--culoare-contur);
+    border-top-left-radius: 50% 60%;
+    border-top-right-radius: 50% 60%;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15); /*  degradé */
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+
+#sageata {
+    z-index: 1;
+    font-size: 1.5rem;
+    color: var(--culoare-contur);
+    transition: transform 0.5s ease, color 0.5s ease;
+}
+
+
+#link-top:hover {
+    opacity: 1; /* Devine opac */
+}
+
+#link-top:hover::before {
+    background-color: var(--culoare-highlight); /* Schimbă culoarea fundalului */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.25);
+}
+
+#link-top:hover #sageata {
+    transform: scale(1.2); /* Săgeata devine mai mare */
     color: white;
 }
 
-/* tooltip */
-#link-top::after{
+/* Tooltip - apare la hover */
+#link-top::after {
     content: attr(data-tooltip);
     position: absolute;
-    right: 120%;
-    top: 50%;
-    transform: translateY(-50%) rotate(-45deg) scale(0);
-    transform-origin: right center;
-    background-color: var(--culoare-contur);
+    bottom: 110%;
+    right: 0;
+    background: var(--culoare-contur);
     color: white;
-    padding: 0.35rem 0.6rem;
-    border-radius: 0.5rem;
-    white-space: nowrap;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.3rem;
     font-size: 0.8rem;
+    white-space: nowrap;
     opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    pointer-events: none;
-    z-index: 2;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
 }
 
-#link-top:hover::after{
+#link-top:hover::after {
     opacity: 1;
-    transform: translateY(-50%) rotate(-45deg) scale(1);
+    visibility: visible;
 }
-
 /* ============================= */
 /* ETAPA 3 - VARIANTE MENIU */
 /* ============================= */
