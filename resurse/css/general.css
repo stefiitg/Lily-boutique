@@ -720,3 +720,22 @@ ul.meniu > li > ul > li > a:hover{
 #watermark-print {
     display: none;
 }
+
+/*etapa 4- stilizarea obligatorie a textului din subtitrare*/
+/* Stilizarea videoclipului pentru ecrane diferite */
+.video-responsive {
+    width: 80%;       /* lățime în procentaje */
+    max-width: 700px; /* limită maximă să nu devină uriaș */
+    min-width: 300px; /* limită minimă pentru telefoane mici */
+    height: auto;     /* păstrează proporțiile */
+    display: block;
+    margin: 1rem auto;
+}
+
+/* Stilizarea textului VTT (subtitrări) */
+::cue {
+    background-color: transparent; /* fundal transparent */
+    color: white;                  /* text alb */
+    text-shadow: 2px 2px 2px black; /* umbră neagră pentru vizibilitate */
+    font-family: "Montserrat", sans-serif;
+}

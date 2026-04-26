@@ -48,21 +48,35 @@
                 </div>
             </div>
             <hr class="rochii"/>
-            <div id="container-video">
-                <img style="width:50%" class="farfurie" src="resurse/imagini/rochie_alba.png" alt="rochie" title="rochie alba de vara">
-                <div id="centrare-video">
-                    <div id="clip-video">
-                        <div id="stil-video">
-                            <video width="320" height="240"  playsinline autoplay loop muted>
-                                <source src="resurse/video/Chocolate.mp4" type="video/mp4">
-                                <source src="resurse/video/Chocolate.ogv" type="video/ogv">
-                                <track default src="data:image/png;base64, V0VCVlRUIC0gQ2lvY29sYXTEgwoKMDA6MDAuMDAwIC0tPiAwMDowMy4wMDAgbGluZTowCkNpb2NvbGF0xIMhISEKCjAwOjAzLjAwMCAtLT4gMDA6MDcuMDAwIGxpbmU6MApNdWx0xIMgY2lvY29sYXTEgyEhISEKCjAwOjA5LjAwMCAtLT4gMDA6MTQuMDAwIGxpbmU6MApVcHMsIGFtIG11cmTEg3JpdCBtYXNhIQoKMDA6MTQuNTAwIC0tPiAwMDoxOS4wMDAgbGluZTowCk51IGNvbnRlYXrEgyEgQ2lvY29sYXTEg8SDxIPEg8SDxIMhCgo=" kind="captions" srclang="ro" label="romana">
-                                <track src="data:image/png;base64, V0VCVlRUIC0gQ2hvY29sYXRlDQoNCjAwOjAwLjAwMCAtLT4gMDA6MDMuMDAwDQpDaG9jb2xhdGUhISENCg0KMDA6MDMuMDAwIC0tPiAwMDowNy4wMDANCkxvdHMgb2YgY2hvY29sYXRlISEhIQ0KDQowMDowOS4wMDAgLS0+IDAwOjE0LjAwMA0KT3VwcywgdGFibGUgZ290IGRpcnR5IQ0KDQowMDoxNC41MDAgLS0+IDAwOjE5LjAwMA0KRG9lc24ndCBtYXR0ZXIhIENob2NvbGF0ZSEhIQ0KDQo=" kind="captions" srclang="en" label="engleza">
-                            </video>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <section id="sectiune-video">
+    <h2>Prezentare Colecție</h2>
+    <div id="container-video">
+        <video 
+            class="video-responsive" 
+            controls 
+            preload="none" 
+            poster="/resurse/imagini/rochie_alba.png"> 
+            
+            <source src="/resurse/video/Chocolate.mp4" type="video/mp4">
+            <source src="/resurse/video/Chocolate.ogv" type="video/ogv">
+
+            <track 
+                default 
+                src="/resurse/video/romana.vtt" 
+                kind="captions" 
+                srclang="ro" 
+                label="Română">
+            
+            <track 
+                src="/resurse/video/engleza.vtt" 
+                kind="captions" 
+                srclang="en" 
+                label="English">
+
+            Browserul tău nu suportă tag-ul video.
+        </video>
+    </div>
+</section>
             <p>
            Inspiră-te și din tendințele actuale consultând
            <a href="https://www.vogue.com/fashion" target="_blank" rel="noopener noreferrer">
