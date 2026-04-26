@@ -1,97 +1,18 @@
 <!DOCTYPE html>
 <html lang="ro"> 
     <head>
-        
-        
-        <meta name="author" content="Tiganila Stefania">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Lily boutique ofera o gama larga de articole vestimentare de vara, primavara si iarna realizate din cele mai fine tasaturi si cele mai bune materiale">
-        <meta name="keywords" 
-          content="rochii, rochii de vara, rochii de ocazie, camasi, esarfe, bluze, boutique">
-        <meta charset="utf-8">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <title>
+     <title>
             Site de articole vestimentare
         </title>
-        <link rel="icon" type="image/png" href="/resurse/imagini/favicon/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/resurse/imagini/favicon/favicon.svg" />
-        <link rel="shortcut icon" href="/resurse/imagini/favicon/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/resurse/imagini/favicon/apple-touch-icon.png" />
-        <link rel="manifest" href="/resurse/imagini/favicon/site.webmanifest" />
-        <link rel ="stylesheet" href="/resurse/css/general.css" type="text/css"/>
-        <link rel ="stylesheet" href="/resurse/css/nav.css" type="text/css"/>
-        <link rel ="stylesheet" href="/resurse/css/nav1000.css" type="text/css" media="screen and(max-width: 1000px)"/>
-        <link rel ="stylesheet" href="/resurse/css/nav700.css" type="text/css" media="screen and(max-width: 700px)"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+         <meta name="keywords" 
+          content="rochii, rochii de vara, rochii de ocazie, camasi, esarfe, bluze, boutique">
+        <meta name="description" content="Lily boutique ofera o gama larga de articole vestimentare de vara, primavara si iarna realizate din cele mai fine tasaturi si cele mai bune materiale">
+        
+       <%- include ../fragmente/head.ejs %>
 
     </head>
     <body>
-        <header id="top">
-       
-        <h1> Lily boutique<i class="fa-solid fa-martini-glass"></i></h1>
-         <img src="/resurse/imagini/sigla.png" alt="single"/>
-       <nav class="nav-principal">
-    <label id="hamburger" for="ch-menu">
-        <i class="fa-solid fa-bars"></i>
-    </label>
-    <input id="ch-menu" type="checkbox">
-
-    <ul class="meniu">
-        <li>
-            <a href="index.html">
-                <i class="fa-solid fa-house"></i>
-                <span>Acasă</span>
-            </a>
-            <ul>
-                <li><a href="#welcome">Welcome</a></li>
-                <li><a href="#promotii">Promoții</a></li>
-                <li><a href="#noutati">Noutăți</a></li>
-                <li><a href="#orar">Orar</a></li>
-            </ul>
-        </li>
-
-        <li>
-            <a href="#">
-                <i class="fa-solid fa-shirt"></i>
-                <span>Produse</span>
-            </a>
-            <ul>
-                <li><a href="#rochii">Rochii</a></li>
-                <li><a href="#camasi">Cămăși</a></li>
-                <li><a href="#esarfe">Eșarfe</a></li>
-                <li><a href="#bluze">Bluze</a></li>
-            </ul>
-        </li>
-
-        <li>
-            <a href="#">
-                <i class="fa-solid fa-images"></i>
-                <span>Galerii</span>
-            </a>
-            <ul>
-                <li><a href="galerie-statica.html">Galerie statică</a></li>
-                <li><a href="galerie-dinamica.html">Galerie dinamică</a></li>
-            </ul>
-        </li>
-
-        <li>
-            <a href="#">
-                <i class="fa-solid fa-circle-info"></i>
-                <span>Despre</span>
-            </a>
-            <ul>
-                <li><a href="despre.html">Despre noi</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
-       </header>
-
+        <%- include ../fragmente/header.ejs %>
         <main> <!--  comentariu -->
         <div id="grid-pagina">
 
@@ -111,11 +32,11 @@
 
                          <picture>
 
-                            <source srcset="/resurse/imagini/rochie_rosie_mica.png" media="(max-width:600px)">
+                            <source srcset="resurse/imagini/rochie_rosie_mica.png" media="(max-width:600px)">
 
-                            <source srcset="/resurse/imagini/rochie_rosie_medie.png" media="(max-width:1200px)">
+                            <source srcset="resurse/imagini/rochie_rosie_medie.png" media="(max-width:1200px)">
 
-                              <img src="/resurse/imagini/rochie_rosie_mare.png"
+                              <img src="resurse/imagini/rochie_rosie_mare.png"
                                    alt="Rochie elegantă"
                                    title="Rochie elegantă">
 
@@ -128,13 +49,13 @@
             </div>
             <hr class="rochii"/>
             <div id="container-video">
-                <img style="width:50%" class="farfurie" src="/resurse/imagini/rochie_alba.png" alt="rochie" title="rochie alba de vara">
+                <img style="width:50%" class="farfurie" src="resurse/imagini/rochie_alba.png" alt="rochie" title="rochie alba de vara">
                 <div id="centrare-video">
                     <div id="clip-video">
                         <div id="stil-video">
                             <video width="320" height="240"  playsinline autoplay loop muted>
-                                <source src="/resurse/video/Chocolate.mp4" type="video/mp4">
-                                <source src="/resurse/video/Chocolate.ogv" type="video/ogv">
+                                <source src="resurse/video/Chocolate.mp4" type="video/mp4">
+                                <source src="resurse/video/Chocolate.ogv" type="video/ogv">
                                 <track default src="data:image/png;base64, V0VCVlRUIC0gQ2lvY29sYXTEgwoKMDA6MDAuMDAwIC0tPiAwMDowMy4wMDAgbGluZTowCkNpb2NvbGF0xIMhISEKCjAwOjAzLjAwMCAtLT4gMDA6MDcuMDAwIGxpbmU6MApNdWx0xIMgY2lvY29sYXTEgyEhISEKCjAwOjA5LjAwMCAtLT4gMDA6MTQuMDAwIGxpbmU6MApVcHMsIGFtIG11cmTEg3JpdCBtYXNhIQoKMDA6MTQuNTAwIC0tPiAwMDoxOS4wMDAgbGluZTowCk51IGNvbnRlYXrEgyEgQ2lvY29sYXTEg8SDxIPEg8SDxIMhCgo=" kind="captions" srclang="ro" label="romana">
                                 <track src="data:image/png;base64, V0VCVlRUIC0gQ2hvY29sYXRlDQoNCjAwOjAwLjAwMCAtLT4gMDA6MDMuMDAwDQpDaG9jb2xhdGUhISENCg0KMDA6MDMuMDAwIC0tPiAwMDowNy4wMDANCkxvdHMgb2YgY2hvY29sYXRlISEhIQ0KDQowMDowOS4wMDAgLS0+IDAwOjE0LjAwMA0KT3VwcywgdGFibGUgZ290IGRpcnR5IQ0KDQowMDoxNC41MDAgLS0+IDAwOjE5LjAwMA0KRG9lc24ndCBtYXR0ZXIhIENob2NvbGF0ZSEhIQ0KDQo=" kind="captions" srclang="en" label="engleza">
                             </video>
@@ -154,8 +75,8 @@
                https://en.wikipedia.org/<wbr>wiki/<wbr>Scarf#History
            </a>
              </p>
-           <a href="/resurse/imagini/rochie_alba_trandafiri.png">
-         <img src="/resurse/imagini/rochie_alba_trandafiri.png" alt="Rochie albă cu trandafiri" title="Click pentru imagine mai mare" width="250">
+           <a href="resurse/imagini/rochie_alba_trandafiri.png">
+         <img src="resurse/imagini/rochie_alba_trandafiri.png" alt="Rochie albă cu trandafiri" title="Click pentru imagine mai mare" width="250">
           </a>
             </section>
             <section id="promotii">
@@ -401,25 +322,25 @@
                 <p><strong>Atentie!!!</strong> in prima zi a lunii facem inventar.</p>
             </section>
             <figure id="fig1" class="fg-img">
-                <img src="/resurse/imagini/rochie_bleu.png" alt="rochie bleu">
+                <img src="resurse/imagini/rochie_bleu.png" alt="rochie bleu">
                 <figcaption>Rochie bleu</figcaption>
             </figure>
             <p>
            Descarcă imaginea produsului "rochie bleu"
-           <a href="/resurse/imagini/rochie_bleu.png" download="rochie_bleu_lily_boutique.png">
+           <a href="resurse/imagini/rochie_bleu.png" download="rochie_bleu_lily_boutique.png">
                 Descarcă fotografia
              </a>
             </p>
             <figure id="fig2" class="fg-img">
-            <img src="/resurse/imagini/rochie_neagra.png" alt="briose">
+            <img src="resurse/imagini/rochie_neagra.png" alt="briose">
             <figcaption>Rochie neagra</figcaption>
             </figure>
             <figure  id="fig3" class="fg-img">
-            <img src="/resurse/imagini/rochie_maro.png" alt="briose">
+            <img src="resurse/imagini/rochie_maro.png" alt="briose">
             <figcaption>Rochie maro</figcaption>
             </figure>
             <figure  id="fig4">
-            <img src="/resurse/imagini/rochie_alba_lunga.png" alt="briose">
+            <img src="resurse/imagini/rochie_alba_lunga.png" alt="briose">
             <figcaption>Rochie alba lunga</figcaption>
             </figure>
            <section id="anunturi">
@@ -468,24 +389,24 @@
             <div id="grid-galerie">
                 <figure>
                     <div>
-                        <img src="/resurse/imagini/esarfa_rosie.png" alt="esarfa"></div>
+                        <img src="resurse/imagini/esarfa_rosie.png" alt="esarfa"></div>
                 
                 <figcaption>Haine</figcaption>
                 </figure>
                 <figure>
-                <img src="/resurse/imagini/esarfa_portocalie.png" alt="esarfa">
+                <img src="resurse/imagini/esarfa_portocalie.png" alt="esarfa">
                 <figcaption>esarfa</figcaption>
                 </figure>
                 <figure>
-                <img src="/resurse/imagini/esarfa_bej.png" alt="esarfa">
+                <img src="resurse/imagini/esarfa_bej.png" alt="esarfa">
                 <figcaption>esarfa</figcaption>
                 </figure>
                 <figure>
-                <img src="/resurse/imagini/bluza_roz.png" alt="bluza">
+                <img src="resurse/imagini/bluza_roz.png" alt="bluza">
                 <figcaption>Bluza</figcaption>
                 </figure>
                 <figure>
-                <img src="/resurse/imagini/rochie_alba_trandafiri.png" alt="rochie">
+                <img src="resurse/imagini/rochie_alba_trandafiri.png" alt="rochie">
                 <figcaption>Rochie</figcaption>
                 </figure>
                 
@@ -539,41 +460,7 @@
 
     </main>
     
-    <footer>
-        <p id="banner-print">Acesta este un proiect școlar!</p>
-        <address>
-    Telefon:
-    <a href="tel:+40123456789">+40 123 456 789</a>
-    <br>
-
-    Adresă:
-    <a href="https://www.google.com/maps/place/Facultatea+de+Matematica+si+Informatica/@44.4356,26.1024,17z">
-        Strada Modei nr. 10<br>
-        București, România
-    </a>
-    <br>
-
-    Email:
-    <a href="mailto:contact@lilyboutique.ro">contact@lilyboutique.ro</a>
-    <br>
-
-    WhatsApp:
-    <a href="https://wa.me/40123456789">Scrie-ne pe WhatsApp</a>
-</address>
-
-<p>
-   <small>
-      &copy; copyright | Lily Boutique |
-      Pagina creată la data de
-      <time datetime="2026-03-09">9 martie 2026</time>
-   </small>
-</p>
-
-        <a href="#top" id="link-top" aria-label="Mergi la începutul paginii" data-tooltip="Înapoi la început">
-    <span id="sageata">&#129081;</span>
-</a>
-        
-    </footer>
+        <%- include ../fragmente/footer.ejs %>
     <div id="watermark-print">
     Tiganila<br>
     Stefania

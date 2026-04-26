@@ -1,0 +1,31 @@
+{
+  "name": "proiect-tehnici-web",
+  "version": "1.0.0",
+  "description": "boutique",
+  "keywords": [
+    "rochii",
+    "costume",
+    "boutique",
+    "tinute",
+    "outfituri"
+  ],
+  "homepage": "https://github.com/stefiitg/Lily-boutique#readme",
+  "bugs": {
+    "url": "https://github.com/stefiitg/Lily-boutique/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stefiitg/Lily-boutique.git"
+  },
+  "license": "ISC",
+  "author": "Stefania Tiganila",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^5.0.2",
+    "express": "^5.2.1"
+  }
+}
