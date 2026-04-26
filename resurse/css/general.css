@@ -739,3 +739,112 @@ ul.meniu > li > ul > li > a:hover{
     text-shadow: 2px 2px 2px black; /* umbră neagră pentru vizibilitate */
     font-family: "Montserrat", sans-serif;
 }
+
+/* ============================= */
+/* etapa 4 -CERINȚA - STILIZARE LINKURI DIN MAIN */
+/* ============================= */
+
+/* Selectăm linkurile din conținutul paginii (main), excluzând tab-urile video */
+main a:not(.taburi-iframe a) {
+    /* Setări pentru animația de hover (pata de culoare) */
+    background-image: radial-gradient(circle, var(--culoare-secundara) 0%, var(--culoare-secundara) 40%, transparent 80%, transparent 100%);
+    background-position: center;
+    background-size: 0%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s ease, border 0.1s ease;
+    
+    /* Prevenim mișcarea textului (layout shift) când apare border-ul pe :active */
+    border: 1px solid transparent;
+    padding: 0 0.2rem; /* Un mic spațiu ca pata de culoare și borderul să respire */
+    border-radius: 3px; 
+}
+
+/* 1. Linkuri vizitate (culoare din schema cromatică) */
+main a:not(.taburi-iframe a):visited {
+    color: var(--culoare-contur);
+}
+
+/* 2 & 3. Linkuri externe (încep cu http) și simbolul generat */
+main a[href^="http"]:not(.taburi-iframe a)::before {
+    content: "⮳ ";
+    font-size: 1.5em; /* 50% mai mare decât fontul linkului */
+    transition: color 0.3s ease;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 4. Schimbarea culorii simbolului la hover pe link extern */
+main a[href^="http"]:not(.taburi-iframe a):hover::before {
+    color: var(--culoare-highlight);
+}
+
+/* 5. Apariția petei de culoare la hover pe orice link din main */
+main a:not(.taburi-iframe a):hover {
+    background-size: 100% 100%; /* Crește pentru a acoperi textul */
+}
+
+/* 6. Border la click pe link */
+main a:not(.taburi-iframe a):active {
+    border: 1px solid var(--culoare-contur);
+}
+
+/* ============================= */
+/* ETAPA 5 - CERINȚA - REFLEXIE TEXT       */
+/* ============================= */
+
+/* Containerul care ține ambele texte la un loc */
+.container-reflexie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Spațiul dintre cuvânt și reflexie */
+    margin: 3rem 0;
+    cursor: pointer;
+}
+
+/* Textul normal (stânga) */
+.text-original {
+    margin: 0;
+    color: var(--culoare-contur);
+    transform: rotate(-15deg); /* Rotim textul ușor în sus (ca în video) */
+    transition: color 0.4s ease;
+}
+
+/* Textul reflectat (dreapta) */
+.text-reflectat {
+    margin: 0;
+    color: var(--culoare-contur);
+    /* Rotim în direcție opusă (15deg) și răsturnăm în oglindă cu scaleX(-1) */
+    transform: rotate(15deg) scaleX(-1);
+    transition: color 0.4s ease;
+}
+
+/* La hover pe container, ambele texte își schimbă culoarea simultan */
+.container-reflexie:hover .text-original,
+.container-reflexie:hover .text-reflectat {
+    color: var(--culoare-highlight);
+}
+
+/* ============================= */
+/* ETAPA 5 - CERINȚA - HR SĂGEȚI (CHEVRON) */
+/* ============================= */
+
+hr.hr-sagetute {
+    border: none; /* Ascundem linia clasică, gri, a hr-ului implicit */
+    height: 20px; /* Înălțimea totală a hr-ului */
+    margin: 2rem 0; /* Spațiu de respirație sus și jos */
+    
+    /* Desenăm cele două diagonale (banda de culoare începe la 35% și se termină la 65%) */
+    background-image: 
+        linear-gradient(45deg, transparent 35%, var(--culoare-contur) 35%, var(--culoare-contur) 65%, transparent 65%),
+        linear-gradient(-45deg, transparent 35%, var(--culoare-contur) 35%, var(--culoare-contur) 65%, transparent 65%);
+    
+    /* Lățimea "săgeții" este 20px, iar înălțimea este fix jumătate din hr (10px) */
+    background-size: 20px 10px; 
+    
+    /* Primul gradient e pus sus (0 0), iar al doilea e împins jos cu jumătate din element (0 100%) */
+    background-position: 0 0, 0 100%; 
+    
+    /* Se repetă la nesfârșit doar pe axa X (orizontală) */
+    background-repeat: repeat-x;
+}

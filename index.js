@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const sass = require("sass"); // Am importat pachetul sass
 
 const app = express();
 app.set("view engine", "ejs");
@@ -10,6 +11,9 @@ console.log("Folder index.js", __dirname);
 console.log("Folder curent (de lucru)", process.cwd());
 console.log("Cale fisier", __filename);
 
+// ---------------------------------------------------------
+// 1. CREARE FOLDERE AUTOMAT
+// ---------------------------------------------------------
 const vect_foldere = ["temp", "logs", "backup", "fisiere_uploadate"];
 for (let folder of vect_foldere) {
     let caleFolder = path.join(__dirname, folder);
@@ -19,8 +23,15 @@ for (let folder of vect_foldere) {
     }
 }
 
+// ---------------------------------------------------------
+// 2. VARIABILE GLOBALE ȘI ERORI
+// ---------------------------------------------------------
 let obGlobal = {
-    obErori: null
+    obErori: null,
+    // Am definit folderele pentru scss, css si backup
+    folderScss: path.join(__dirname, "resurse/scss"),
+    folderCss: path.join(__dirname, "resurse/css"),
+    folderBackup: path.join(__dirname, "backup")
 };
 
 function initErori() {
@@ -56,12 +67,77 @@ function afisareEroare(res, identificator, titlu, text, imagine) {
     res.render("eroare", dateEroare);
 }
 
+// ---------------------------------------------------------
+// 3. FUNCȚIE COMPILARE SCSS -> CSS + BACKUP AUTOMAT
+// ---------------------------------------------------------
+function compileazaScss(caleScss, caleCss) {
+    try {
+        // Stabilim caile absolute pentru input
+        let caleScssAbs = path.isAbsolute(caleScss) ? caleScss : path.join(obGlobal.folderScss, caleScss);
+
+        // Numele fisierului CSS rezultat
+        let numeFisierCss = caleCss ? path.basename(caleCss) : path.basename(caleScssAbs, ".scss") + ".css";
+        
+        // Stabilim calea absoluta pentru output
+        let caleCssAbs = caleCss ? (path.isAbsolute(caleCss) ? caleCss : path.join(obGlobal.folderCss, caleCss)) : path.join(obGlobal.folderCss, numeFisierCss);
+
+        // Daca fisierul SCSS efectiv nu exista, ne oprim (evitam erori de stergere accidentala)
+        if (!fs.existsSync(caleScssAbs)) return;
+
+        // --- BACKUP ---
+        let caleBackupDir = path.join(obGlobal.folderBackup, "resurse/css");
+        if (!fs.existsSync(caleBackupDir)) {
+            fs.mkdirSync(caleBackupDir, { recursive: true }); // cream structura de backup daca nu exista
+        }
+
+        let caleBackupFisier = path.join(caleBackupDir, numeFisierCss);
+        if (fs.existsSync(caleCssAbs)) {
+            // Copiem fisierul vechi in backup inainte sa-l suprascriem
+            fs.copyFileSync(caleCssAbs, caleBackupFisier);
+        }
+
+        // --- COMPILARE ---
+        let rezultat = sass.compile(caleScssAbs);
+        fs.writeFileSync(caleCssAbs, rezultat.css);
+        console.log(`Fisierul ${numeFisierCss} a fost compilat si actualizat cu succes.`);
+    } catch (err) {
+        console.error("Eroare la compilare SCSS:", err.message);
+    }
+}
+
+// Ne asiguram ca folderele SCSS si CSS exista la pornire
+if (!fs.existsSync(obGlobal.folderScss)) {
+    fs.mkdirSync(obGlobal.folderScss, { recursive: true });
+}
+if (!fs.existsSync(obGlobal.folderCss)) {
+    fs.mkdirSync(obGlobal.folderCss, { recursive: true });
+}
+
+// Compilare initiala la pornirea serverului (parcurgem folderul SCSS)
+fs.readdirSync(obGlobal.folderScss).forEach(fisier => {
+    if (fisier.endsWith(".scss")) {
+        compileazaScss(fisier);
+    }
+});
+
+// Pândire modificari pe parcurs (Watch)
+fs.watch(obGlobal.folderScss, (eveniment, fisier) => {
+    if (fisier && fisier.endsWith(".scss")) {
+        console.log(`S-a modificat ${fisier}, se recompileaza...`);
+        compileazaScss(fisier);
+    }
+});
+
+// ---------------------------------------------------------
+// 4. MIDDLEWARE-URI ȘI RUTE EXPRESS
+// ---------------------------------------------------------
+
 app.use((req, res, next) => {
     res.locals.ipUtilizator = req.ip || req.socket.remoteAddress;
     next();
 });
 
-// AICI ESTE REZOLVAREA PENTRU EROAREA DE EXPRESS 5:
+// Bad Request pentru fisierele EJS
 app.get(/\.ejs$/, (req, res) => {
     afisareEroare(res, 400);
 });
@@ -70,6 +146,7 @@ app.get("/favicon.ico", (req, res) => {
     res.sendFile(path.join(__dirname, "resurse/imagini/favicon/favicon.ico"));
 });
 
+// Forbidden pentru directoare din resurse
 app.use("/resurse", (req, res, next) => {
     if (req.url.endsWith("/")) {
         return afisareEroare(res, 403);
@@ -94,7 +171,6 @@ app.get(['/', '/index', '/home'], (req, res) => {
     });
 });
 
-// AICI ESTE REZOLVAREA PENTRU RUTA GENERALĂ ÎN EXPRESS 5:
 app.get(/(.*)/, (req, res) => {
     let paginaCeruta = req.url.substring(1); 
     

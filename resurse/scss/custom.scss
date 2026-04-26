@@ -1,0 +1,32 @@
+/* resurse/scss/custom.scss */
+
+// 1. Variabile de customizare (Trebuie puse ÎNAINTE de importul Bootstrap)
+$primary: #6d214f; // Culoarea ta de contur devine culoarea primară Bootstrap
+$secondary: #c9a227; // Culoarea ta de highlight
+$body-bg: #f8f1e7; // Fundalul tău implicit
+$body-color: #2f2f2f; // Textul tău implicit
+
+// Dimensiuni ecrane (break-points)
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 700px,  // Customizat conform cerintei tale de 700px
+  lg: 1000px, // Customizat conform cerintei tale de 1000px
+  xl: 1200px
+);
+
+// Heading-uri și Fonturi
+$font-family-sans-serif: "Montserrat", sans-serif;
+$h1-font-size: 2.5rem;
+$h2-font-size: 2rem;
+$border-radius: 0.5rem; // Raza de border
+
+// 2. Importăm sursa Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+// 3. Corectări de layout (Suprascrieri dacă Bootstrap strică ceva)
+// Exemplu: Dacă Bootstrap pune margini pe care nu le vrei
+main {
+    margin-left: var(--margine-pagina) !important;
+    margin-right: var(--margine-pagina) !important;
+}
