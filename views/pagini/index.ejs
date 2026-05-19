@@ -8,11 +8,11 @@
           content="rochii, rochii de vara, rochii de ocazie, camasi, esarfe, bluze, boutique">
         <meta name="description" content="Lily boutique ofera o gama larga de articole vestimentare de vara, primavara si iarna realizate din cele mai fine tasaturi si cele mai bune materiale">
         
-       <%- include ../fragmente/head.ejs %>
+       <%- include ('../fragmente/head.ejs') %>
 
     </head>
     <body>
-        <%- include ../fragmente/header.ejs %>
+        <%- include ('../fragmente/header.ejs') %>
         <main> <!--  comentariu -->
         <div id="grid-pagina">
 
@@ -21,7 +21,7 @@
                     <h2>Bine ati venit</h2>
                     <p class="subtitlu">Prezentare</p>
                 </hgroup>
-
+              <p>ip:   <%- locals.ipUtilizator%> </p>
                 <p class="intro">Lily boutique ofera o gama larga de articole vestimentare de vara, primavara si iarna realizate din cele mai fine tasaturi si cele mai bune materiale!</p>
                 
                 <div class="intro-oferte"><div>Rochii</div><div>Rochii de ocazie</div><div>Camasi</div><div>Esarfe</div><div>Pantaloni</div></div>
@@ -32,11 +32,11 @@
 
                          <picture>
 
-                            <source srcset="resurse/imagini/rochie_rosie_mica.png" media="(max-width:600px)">
+                            <source srcset="/resurse/imagini/rochie_rosie_mica.png" media="(max-width:600px)">
 
-                            <source srcset="resurse/imagini/rochie_rosie_medie.png" media="(max-width:1200px)">
+                            <source srcset="/resurse/imagini/rochie_rosie_medie.png" media="(max-width:1200px)">
 
-                              <img src="resurse/imagini/rochie_rosie_mare.png"
+                              <img src="/resurse/imagini/rochie_rosie_mare.png"
                                    alt="Rochie elegantă"
                                    title="Rochie elegantă">
 
@@ -57,8 +57,8 @@
             preload="none" 
             poster="/resurse/imagini/rochie_alba.png"> 
             
-            <source src="/resurse/video/Chocolate.mp4" type="video/mp4">
-            <source src="/resurse/video/Chocolate.ogv" type="video/ogv">
+            <source src="/resurse/video/Reclama.mp4" type="video/mp4">
+            <source src="/resurse/video/Reclama.avi" type="video/avi">
 
             <track 
                 default 
@@ -89,8 +89,8 @@
                https://en.wikipedia.org/<wbr>wiki/<wbr>Scarf#History
            </a>
              </p>
-           <a href="resurse/imagini/rochie_alba_trandafiri.png">
-         <img src="resurse/imagini/rochie_alba_trandafiri.png" alt="Rochie albă cu trandafiri" title="Click pentru imagine mai mare" width="250">
+           <a href="/resurse/imagini/rochie_alba_trandafiri.png">
+         <img src="/resurse/imagini/rochie_alba_trandafiri.png" alt="Rochie albă cu trandafiri" title="Click pentru imagine mai mare" width="250">
           </a>
             </section>
             <hr class="hr-sagetute">
@@ -337,25 +337,25 @@
                 <p><strong>Atentie!!!</strong> in prima zi a lunii facem inventar.</p>
             </section>
             <figure id="fig1" class="fg-img">
-                <img src="resurse/imagini/rochie_bleu.png" alt="rochie bleu">
+                <img src="/resurse/imagini/rochie_bleu.png" alt="rochie bleu">
                 <figcaption>Rochie bleu</figcaption>
             </figure>
             <p>
            Descarcă imaginea produsului "rochie bleu"
-           <a href="resurse/imagini/rochie_bleu.png" download="rochie_bleu_lily_boutique.png">
+           <a href="/resurse/imagini/rochie_bleu.png" download="rochie_bleu_lily_boutique.png">
                 Descarcă fotografia
              </a>
             </p>
             <figure id="fig2" class="fg-img">
-            <img src="resurse/imagini/rochie_neagra.png" alt="briose">
+            <img src="/resurse/imagini/rochie_neagra.png" alt="briose">
             <figcaption>Rochie neagra</figcaption>
             </figure>
             <figure  id="fig3" class="fg-img">
-            <img src="resurse/imagini/rochie_maro.png" alt="briose">
+            <img src="/resurse/imagini/rochie_maro.png" alt="briose">
             <figcaption>Rochie maro</figcaption>
             </figure>
             <figure  id="fig4">
-            <img src="resurse/imagini/rochie_alba_lunga.png" alt="briose">
+            <img src="/resurse/imagini/rochie_alba_lunga.png" alt="briose">
             <figcaption>Rochie alba lunga</figcaption>
             </figure>
            <section id="anunturi">
@@ -407,24 +407,24 @@
             <div id="grid-galerie">
                 <figure>
                     <div>
-                        <img src="resurse/imagini/esarfa_rosie.png" alt="esarfa"></div>
+                        <img src="/resurse/imagini/esarfa_rosie.png" alt="esarfa"></div>
                 
                 <figcaption>Haine</figcaption>
                 </figure>
                 <figure>
-                <img src="resurse/imagini/esarfa_portocalie.png" alt="esarfa">
+                <img src="/resurse/imagini/esarfa_portocalie.png" alt="esarfa">
                 <figcaption>esarfa</figcaption>
                 </figure>
                 <figure>
-                <img src="resurse/imagini/esarfa_bej.png" alt="esarfa">
+                <img src="/resurse/imagini/esarfa_bej.png" alt="esarfa">
                 <figcaption>esarfa</figcaption>
                 </figure>
                 <figure>
-                <img src="resurse/imagini/bluza_roz.png" alt="bluza">
+                <img src="/resurse/imagini/bluza_roz.png" alt="bluza">
                 <figcaption>Bluza</figcaption>
                 </figure>
                 <figure>
-                <img src="resurse/imagini/rochie_alba_trandafiri.png" alt="rochie">
+                <img src="/resurse/imagini/rochie_alba_trandafiri.png" alt="rochie">
                 <figcaption>Rochie</figcaption>
                 </figure>
                 
@@ -478,7 +478,7 @@
 
     </main>
     
-        <%- include ../fragmente/footer.ejs %>
+        <%- include ('../fragmente/footer.ejs') %>
     <div id="watermark-print">
     Tiganila<br>
     Stefania

@@ -15,19 +15,6 @@ main{
     margin-left: var(--margine-pagina);
     margin-right: var(--margine-pagina);
 }
-/*
-#grid-pagina{
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-areas:
-        "welcome welcome welcome welcome"
-        "orar orar produse produse"
-        "calendar calendar produse produse"
-        "utilizatori calendar produse produse"
-        "utilizatori anunturi anunturi date"
-      ;
-}*/
 
 #grid-pagina{
     display: grid;
@@ -120,10 +107,6 @@ figure > img{
 
 @media screen and (max-width:700px) {
 
-      *{
-        animation: none !important;
-        transition: none !important;
-    }
     html{
         font-size: 16px;
          
@@ -299,8 +282,6 @@ figure > img{
 /* ============================= */
 /* CERINTA 5 - LINK TOP */
 /* ============================= */
-/* Containerul principal: Poziție fixă, rotit 45deg */
-/* Containerul butonului */
 #link-top {
     position: fixed;
     right: 2rem;
@@ -311,9 +292,9 @@ figure > img{
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    opacity: 0.6; /* Semi-transparent */
+    opacity: 0.6; 
     z-index: 1000;
-    transition: opacity 0.5s ease; /* Tranziție pentru opacitate */
+    transition: opacity 0.5s ease; 
 }
 
 
@@ -325,7 +306,7 @@ figure > img{
     border: 2px solid var(--culoare-contur);
     border-top-left-radius: 50% 60%;
     border-top-right-radius: 50% 60%;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15); /*  degradé */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15); 
     transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
 
@@ -339,20 +320,19 @@ figure > img{
 
 
 #link-top:hover {
-    opacity: 1; /* Devine opac */
+    opacity: 1; 
 }
 
 #link-top:hover::before {
-    background-color: var(--culoare-highlight); /* Schimbă culoarea fundalului */
+    background-color: var(--culoare-highlight); 
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.25);
 }
 
 #link-top:hover #sageata {
-    transform: scale(1.2); /* Săgeata devine mai mare */
+    transform: scale(1.2); 
     color: white;
 }
 
-/* Tooltip - apare la hover */
 #link-top::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -571,13 +551,25 @@ ul.meniu > li > ul > li > a:hover{
         padding-left: 2rem;
     }
 }
+
+/* ============================= */
+/* ASCUNDEREA DE PE ECRAN A ELEMENTELOR DE PRINT */
+/* Modificat: Am adăugat @media screen ca să protejăm funcționalitatea de print */
+/* ============================= */
+@media screen {
+    #banner-print,
+    #watermark-print {
+        display: none !important;
+    }
+}
+
 /* ============================= */
 /* ETAPA 3 - CSS PRINTARE */
 /* ============================= */
 
 @media print {
 
-    /* margini diferite pentru pagini stânga/dreapta */
+    
     @page:left {
         margin-left: 3cm;
         margin-right: 1cm;
@@ -600,7 +592,7 @@ ul.meniu > li > ul > li > a:hover{
         text-decoration: none !important;
     }
 
-    /* ascundem media si elemente dependente */
+    
     img,
     picture,
     figure,
@@ -679,27 +671,26 @@ ul.meniu > li > ul > li > a:hover{
 
     /* banner doar la print */
     #banner-print {
-        display: block !important;
+        display: block ;
         width: 70%;
-        
         margin-top: 2rem;
         text-align: center;
         border: 4px inset black;
         padding: 0.6rem;
         font-weight: bold;
-
         position: absolute;
-        bottom: 1cm; /* îl pune jos pe pagină */
+        bottom: 1cm;
         left: 0;
         right: 0;
-        margin: 0 auto; /* centrare absolută */
+        margin: 0 auto; 
     }
 
     /* watermark */
+    /* Modificat: Am crescut bottom și right ca să evităm tăierea din cauza lui margin de pe @page, plus un z-index puternic */
     #watermark-print {
         position: fixed;
-        right: 0.5cm;
-        bottom: 0.5cm;
+        right: 3.2cm; 
+        bottom: 2.2cm; 
         width: 4cm;
         height: 1cm;
         border: 3px solid black;
@@ -712,31 +703,28 @@ ul.meniu > li > ul > li > a:hover{
         justify-content: center;
         line-height: 1.1;
         background: white;
+        color: black !important;
+        z-index: 9999; 
     }
 }
 
-/* in afara printului, le ascundem */
-#banner-print,
-#watermark-print {
-    display: none;
-}
 
-/*etapa 4- stilizarea obligatorie a textului din subtitrare*/
-/* Stilizarea videoclipului pentru ecrane diferite */
+/* ============================= */
+/* etapa 4- stilizarea obligatorie a textului din subtitrare */
+/* ============================= */
 .video-responsive {
-    width: 80%;       /* lățime în procentaje */
-    max-width: 700px; /* limită maximă să nu devină uriaș */
-    min-width: 300px; /* limită minimă pentru telefoane mici */
-    height: auto;     /* păstrează proporțiile */
+    width: 80%;       
+    max-width: 700px; 
+    min-width: 300px; 
+    height: auto;     
     display: block;
     margin: 1rem auto;
 }
 
-/* Stilizarea textului VTT (subtitrări) */
 ::cue {
-    background-color: transparent; /* fundal transparent */
-    color: white;                  /* text alb */
-    text-shadow: 2px 2px 2px black; /* umbră neagră pentru vizibilitate */
+    background-color: transparent; 
+    color: white;                 
+    text-shadow: 2px 2px 2px black; 
     font-family: "Montserrat", sans-serif;
 }
 
@@ -744,82 +732,93 @@ ul.meniu > li > ul > li > a:hover{
 /* etapa 4 -CERINȚA - STILIZARE LINKURI DIN MAIN */
 /* ============================= */
 
-/* Selectăm linkurile din conținutul paginii (main), excluzând tab-urile video */
-main a:not(.taburi-iframe a) {
-    /* Setări pentru animația de hover (pata de culoare) */
-    background-image: radial-gradient(circle, var(--culoare-secundara) 0%, var(--culoare-secundara) 40%, transparent 80%, transparent 100%);
-    background-position: center;
-    background-size: 0%;
-    background-repeat: no-repeat;
-    transition: background-size 0.4s ease, border 0.1s ease;
+:root {
+    --culoare-nevizitat: #0000ee; /* Culoarea normală a linkului (ex: albastru clasic) */
+    --culoare-vizitat: #ffd700;   /* Galbenul tău pentru linkurile deja accesate */
+    --culoare-pata: rgba(135, 206, 235, 0.6); /* Culoarea pentru pata din fundal */
+}
+
+/* =========================================
+   2. STILIZARE CULORI (NEVIZITAT vs VIZITAT)
+   ========================================= */
+/* Doar linkurile pe care NU ai dat click niciodată */
+main a:link {
+    color: var(--culoare-nevizitat);
+}
+
+/* Linkurile pe care ai dat click deja */
+main a:visited {
+    color: var(--culoare-vizitat);
+}
+
+/* =========================================
+   3. PATA DE CULOARE OVALĂ
+   ========================================= */
+main a {
+    display: inline-block; 
     
-    /* Prevenim mișcarea textului (layout shift) când apare border-ul pe :active */
-    border: 1px solid transparent;
-    padding: 0 0.2rem; /* Un mic spațiu ca pata de culoare și borderul să respire */
-    border-radius: 3px; 
+    /* SECRETUL PENTRU FORMA OVALĂ: */
+    /* Mărim cutia linkului ca să aibă loc pata să se deseneze fără să fie tăiată brusc */
+    padding: 0.2em 0.8em; 
+    /* Compensăm cu margine negativă ca să nu împingă cuvintele din stânga/dreapta lui */
+    margin: -0.2em -0.8em; 
+    
+    /* Folosim 'ellipse' în loc de 'circle' pentru forma ovală turtită */
+    background-image: radial-gradient(ellipse, var(--culoare-pata) 0%, var(--culoare-pata) 40%, transparent 80%, transparent 100%);
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 0% 0%;
+    
+    transition: background-size 0.4s ease-out;
 }
 
-/* 1. Linkuri vizitate (culoare din schema cromatică) */
-main a:not(.taburi-iframe a):visited {
-    color: var(--culoare-contur);
+/* La hover, pata crește */
+main a:hover {
+    background-size: 100% 100%;
 }
 
-/* 2 & 3. Linkuri externe (încep cu http) și simbolul generat */
-main a[href^="http"]:not(.taburi-iframe a)::before {
-    content: "⮳ ";
-    font-size: 1.5em; /* 50% mai mare decât fontul linkului */
-    transition: color 0.3s ease;
+/* =========================================
+   4. STILIZARE SĂGEATĂ LINK EXTERN
+   ========================================= */
+main a[href^="http"]::before {
+    content: "⮳ "; 
+    font-size: 1.5em; 
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: middle; 
+    transition: color 0.3s ease; 
 }
 
-/* 4. Schimbarea culorii simbolului la hover pe link extern */
-main a[href^="http"]:not(.taburi-iframe a):hover::before {
-    color: var(--culoare-highlight);
-}
-
-/* 5. Apariția petei de culoare la hover pe orice link din main */
-main a:not(.taburi-iframe a):hover {
-    background-size: 100% 100%; /* Crește pentru a acoperi textul */
-}
-
-/* 6. Border la click pe link */
-main a:not(.taburi-iframe a):active {
-    border: 1px solid var(--culoare-contur);
+main a[href^="http"]:hover::before {
+    color: #ff4500; 
 }
 
 /* ============================= */
-/* ETAPA 5 - CERINȚA - REFLEXIE TEXT       */
+/* ETAPA 5 - CERINȚA - REFLEXIE TEXT */
 /* ============================= */
-
-/* Containerul care ține ambele texte la un loc */
 .container-reflexie {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Spațiul dintre cuvânt și reflexie */
+    gap: 10px; 
     margin: 3rem 0;
     cursor: pointer;
 }
 
-/* Textul normal (stânga) */
 .text-original {
     margin: 0;
     color: var(--culoare-contur);
-    transform: rotate(-15deg); /* Rotim textul ușor în sus (ca în video) */
+    transform: rotate(-15deg); 
     transition: color 0.4s ease;
 }
 
-/* Textul reflectat (dreapta) */
 .text-reflectat {
     margin: 0;
     color: var(--culoare-contur);
-    /* Rotim în direcție opusă (15deg) și răsturnăm în oglindă cu scaleX(-1) */
     transform: rotate(15deg) scaleX(-1);
     transition: color 0.4s ease;
 }
 
-/* La hover pe container, ambele texte își schimbă culoarea simultan */
 .container-reflexie:hover .text-original,
 .container-reflexie:hover .text-reflectat {
     color: var(--culoare-highlight);
@@ -828,23 +827,14 @@ main a:not(.taburi-iframe a):active {
 /* ============================= */
 /* ETAPA 5 - CERINȚA - HR SĂGEȚI (CHEVRON) */
 /* ============================= */
-
 hr.hr-sagetute {
-    border: none; /* Ascundem linia clasică, gri, a hr-ului implicit */
-    height: 20px; /* Înălțimea totală a hr-ului */
-    margin: 2rem 0; /* Spațiu de respirație sus și jos */
-    
-    /* Desenăm cele două diagonale (banda de culoare începe la 35% și se termină la 65%) */
+    border: none; 
+    height: 20px; 
+    margin: 2rem 0; 
     background-image: 
         linear-gradient(45deg, transparent 35%, var(--culoare-contur) 35%, var(--culoare-contur) 65%, transparent 65%),
         linear-gradient(-45deg, transparent 35%, var(--culoare-contur) 35%, var(--culoare-contur) 65%, transparent 65%);
-    
-    /* Lățimea "săgeții" este 20px, iar înălțimea este fix jumătate din hr (10px) */
     background-size: 20px 10px; 
-    
-    /* Primul gradient e pus sus (0 0), iar al doilea e împins jos cu jumătate din element (0 100%) */
     background-position: 0 0, 0 100%; 
-    
-    /* Se repetă la nesfârșit doar pe axa X (orizontală) */
     background-repeat: repeat-x;
 }

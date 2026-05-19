@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const sass = require("sass"); // Am importat pachetul sass
-
+const sharp = require("sharp"); // Am importat pachetul sharp pentru procesare imagini
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views")); 
@@ -40,10 +40,11 @@ function initErori() {
         let dateJson = fs.readFileSync(caleJson, "utf8");
         obGlobal.obErori = JSON.parse(dateJson);
 
-        obGlobal.obErori.info_erori.forEach(eroare => {
-            eroare.imagine = path.join(obGlobal.obErori.cale_baza, eroare.imagine);
+       obGlobal.obErori.info_erori.forEach(eroare => {
+            eroare.imagine = obGlobal.obErori.cale_baza + eroare.imagine; 
         });
-        obGlobal.obErori.eroare_default.imagine = path.join(obGlobal.obErori.cale_baza, obGlobal.obErori.eroare_default.imagine);
+
+        obGlobal.obErori.eroare_default.imagine = obGlobal.obErori.cale_baza + obGlobal.obErori.eroare_default.imagine;// manual pt eroarea generica
     }
 }
 initErori(); 
@@ -55,16 +56,16 @@ function afisareEroare(res, identificator, titlu, text, imagine) {
     }
 
     let dateEroare = {
-        titlu: titlu || eroareGasita.titlu,
-        text: text || eroareGasita.text,
-        imagine: imagine || eroareGasita.imagine
+        titlu: titlu || eroareGasita?.titlu,
+        text: text || eroareGasita?.text,
+        imagine: imagine || eroareGasita?.imagine
     };
 
     if (eroareGasita.status) {
         res.status(identificator || 500); 
     }
     
-    res.render("eroare", dateEroare);
+   res.render("pagini/eroare", dateEroare);
 }
 
 // ---------------------------------------------------------
@@ -133,29 +134,18 @@ fs.watch(obGlobal.folderScss, (eveniment, fisier) => {
 // ---------------------------------------------------------
 
 app.use((req, res, next) => {
-    res.locals.ipUtilizator = req.ip || req.socket.remoteAddress;
+    res.locals.ipUtilizator = req.ip || req.socket.remoteAddress;   //afisarea adresei IP a utilizatorului in template-uri
     next();
-});
-
-// Bad Request pentru fisierele EJS
-app.get(/\.ejs$/, (req, res) => {
-    afisareEroare(res, 400);
 });
 
 app.get("/favicon.ico", (req, res) => {
     res.sendFile(path.join(__dirname, "resurse/imagini/favicon/favicon.ico"));
 });
 
-// Forbidden pentru directoare din resurse
-app.use("/resurse", (req, res, next) => {
-    if (req.url.endsWith("/")) {
-        return afisareEroare(res, 403);
-    }
-    next();
-});
-
+// Aici lăsăm expunerea folderului resurse (pentru a putea încărca CSS, imagini etc.)
 app.use("/resurse", express.static(path.join(__dirname, "resurse")));
 
+// Tratarea explicită a paginii de start
 app.get(['/', '/index', '/home'], (req, res) => {
     res.render('pagini/index', function(err, rezultatRandare) {
         if(err) {
@@ -171,23 +161,54 @@ app.get(['/', '/index', '/home'], (req, res) => {
     });
 });
 
-app.get(/(.*)/, (req, res) => {
-    let paginaCeruta = req.url.substring(1); 
+// ---------------------------------------------------------
+// FUNCȚIA CENTRALIZATĂ A PROFESORULUI (Catch-All)
+// ---------------------------------------------------------
+app.get("/*pagina", function(req, res){
+    console.log("Cale pagina", req.url);
     
-    res.render('pagini/' + paginaCeruta, function(err, rezultatRandare) {
-        if (err) {
-            console.error(err);
-            if (err.message.includes("Failed to lookup view")) {
-                afisareEroare(res, 404);
-            } else {
-                afisareEroare(res, 500); 
+    // Eroare 403 pentru directoare din resurse
+    if (req.url.startsWith("/resurse") && path.extname(req.url)==""){
+        afisareEroare(res,403);
+        return;
+    }
+    
+    // Eroare 400 pentru fisiere .ejs cerute direct in browser
+    if (path.extname(req.url)==".ejs"){
+        afisareEroare(res,400);
+        return;
+    }
+    
+    // Randarea dinamica a oricarei alte pagini
+    try{
+        res.render("pagini"+req.url, function(err, rezRandare){
+            if (err){
+                if (err.message.includes("Failed to lookup view")){
+                    afisareEroare(res,404)
+                }
+                else{
+                    afisareEroare(res);
+                }
             }
-        } else {
-            res.send(rezultatRandare);
+            else{
+                res.send(rezRandare);
+                //console.log("Rezultat randare", rezRandare);
+            }
+        });
+    }
+    catch(err){
+        if (err.message.includes("Cannot find module")){
+            afisareEroare(res,404)
         }
-    });
+        else{
+            afisareEroare(res);
+        }
+    }
 });
 
+// ---------------------------------------------------------
+// PORNIRE SERVER
+// ---------------------------------------------------------
 app.listen(8080, () => {
     console.log("Serverul a pornit pe portul 8080!");
 });

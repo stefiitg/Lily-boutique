@@ -8,6 +8,18 @@ $umbra-overlay: inset 0 0 12px rgba(255,255,255,0.35);
   text-decoration: none;
 }
 
+
+@keyframes animatieSageata {
+    0% {
+     
+      clip-path: polygon(0 0, -40px 0, 0 50%, -40px 100%, 0 100%);
+    }
+    100% {
+     
+      clip-path: polygon(0 0, 100% 0, calc(100% + 40px) 50%, 100% 100%, 0 100%);
+    }
+  }
+
 .nav-principal{
   position: relative;
   z-index: 1000;
@@ -78,44 +90,43 @@ ul.meniu{
       transform-origin: top left;
       transition: transform 0.35s ease;
       border: 1px solid var(--culoare-contur);
-
+      
       > li > a{
         display: block;
         padding: 0.75rem 1rem;
         color: var(--culoare-text);
-        text-decoration: underline double transparent;
+        background-color: var(--culoare-submeniu);
+        text-decoration-line: underline;
+        text-decoration-style: double;
+        text-decoration-color: rgba(255, 255, 255, 0); 
         text-underline-offset: 0.2rem;
         text-decoration-thickness: 0.14rem;
-        background-color: var(--culoare-submeniu);
-        transition: background-color 0.3s ease, text-decoration-color 0.3s ease;
+        transition: background-color 1s ease, text-decoration-color 1s ease;
 
         &:hover{
           background-color: var(--culoare-highlight);
           color: white;
-          text-decoration-color: white;
+          text-decoration-color: white; 
         }
       }
-    }
+    } /* <-- Aici era eroarea cu acolada în plus */
 
     &:hover > ul{
       transform: scale(1);
-      
     }
   }
 }
 
+/* ================== ECRAN MEDIU ================== */
 @media screen and (max-width: 1000px){
   ul.meniu{
     > li{
       min-width: 70px;
-
       > a{
         font-size: 0.9rem;
-
         span{
           display: none;
         }
-
         i{
           font-size: 1.3rem;
         }
@@ -124,6 +135,7 @@ ul.meniu{
   }
 }
 
+/* ================== ECRAN MIC ================== */
 @media screen and (max-width: 700px){
   #hamburger{
     display: block;
@@ -142,7 +154,7 @@ ul.meniu{
     display: none;
     flex-direction: column;
     width: 100%;
-    background-color: var(--culoare-meniu);
+    background-color: transparent; 
 
     > li{
       width: 100%;
@@ -152,12 +164,14 @@ ul.meniu{
         justify-content: flex-start;
         padding-left: 1rem;
         border-top: 1px solid rgba(255,255,255,0.2);
+        background-color: var(--culoare-meniu); 
 
         span{
           display: inline;
         }
       }
 
+      /* Am decomentat asta pentru a respecta cerința: icon-căsuță pentru prima pagină */
       &:first-child > a span{
         display: none;
       }
@@ -168,18 +182,19 @@ ul.meniu{
 
       > ul{
         position: static;
-        transform: scale(1);
         display: none;
         border: none;
-        clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-        transition: clip-path 0.4s ease;
+        background-color: transparent;
+        transform: scale(1); /* Anulăm scalarea de la ecranul mare */
       }
 
       &:hover > ul{
         display: block;
         
-        clip-path: polygon(0 0, 0 0, 0 50%, 0 100%, 0 100%);
-        transition: clip-path 0.4s ease;
+        > li > a {
+          background-color: var(--culoare-submeniu);
+          animation: animatieSageata 0.7s ease forwards;
+        }
       }
 
       > ul > li > a{
@@ -190,5 +205,9 @@ ul.meniu{
 
   #ch-menu:checked + ul.meniu{
     display: flex;
+
+    > li > a {
+      animation: animatieSageata 0.7s ease forwards;
+    }
   }
 }
