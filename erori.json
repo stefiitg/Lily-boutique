@@ -26,6 +26,14 @@
       "titlu": "Eroare 400: Cerere invalidă",
       "text": "Nu poți accesa direct fișierele template (.ejs).",
       "imagine": "400.png"
+    },
+
+     {
+      "identificator": 2,
+      "status": true,
+      "titlu": "Eroare 2: Eroare de baza de date",
+      "text": "A apărut o eroare la conectarea la baza de date.",
+      "imagine": "2.png"
     }
   ]
 }

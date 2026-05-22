@@ -4,6 +4,8 @@ const fs = require("fs");
 const sass = require("sass"); // Am importat pachetul sass
 const sharp = require("sharp"); // Am importat pachetul sharp pentru procesare imagini
 const app = express();
+const pg = require("pg");
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views")); 
 
@@ -11,6 +13,23 @@ console.log("Folder index.js", __dirname);
 console.log("Folder curent (de lucru)", process.cwd());
 console.log("Cale fisier", __filename);
 
+client=new pg.Client({
+    database:"tehniciweb",
+    user:"stefiitg",
+    password:"stefiitg",
+    host:"localhost",
+    port:5432
+})
+//parola postgre: stefiitg
+
+client.connect().then(() => {
+    // Extragem valorile enum-ului pentru a le trimite automat în meniu (Cerința 4)
+    client.query("SELECT unnest(enum_range(NULL::categ_vestimentara))", (err, res) => {
+        if (!err) {
+            obGlobal.optiuniMeniu = res.rows.map(rand => rand.unnest);
+        }
+    });
+}).catch(err => console.error("Eroare conexiune DB", err));
 // ---------------------------------------------------------
 // 1. CREARE FOLDERE AUTOMAT
 // ---------------------------------------------------------
@@ -134,7 +153,8 @@ fs.watch(obGlobal.folderScss, (eveniment, fisier) => {
 // ---------------------------------------------------------
 
 app.use((req, res, next) => {
-    res.locals.ipUtilizator = req.ip || req.socket.remoteAddress;   //afisarea adresei IP a utilizatorului in template-uri
+    res.locals.ipUtilizator = req.ip || req.socket.remoteAddress;   
+    res.locals.optiuniMeniu = obGlobal.optiuniMeniu || [];
     next();
 });
 
@@ -157,6 +177,38 @@ app.get(['/', '/index', '/home'], (req, res) => {
             }
         } else {
             res.send(rezultatRandare);
+        }
+    });
+});
+
+app.get ("/produse", function(req, res) {
+    let clauzaWhere="";
+    // Aici filtram pe coloana "categorie"
+    if(req.query.tip){
+        clauzaWhere=`WHERE categorie='${req.query.tip}'`;
+    }
+    client.query(`SELECT * FROM produse_vestimentare ${clauzaWhere}`, function(err, rez){
+        if (err){
+            console.log("Eroare", err);
+            afisareEroare(res, 500);
+        } else {   
+            res.render("pagini/produse", { produse: rez.rows });
+        }
+    });
+});
+
+// Ruta pentru un singur produs
+app.get ("/produs/:id", function(req, res) {
+    client.query(`SELECT * FROM produse_vestimentare WHERE id=${req.params.id}`, function(err, rez){
+        if (err){
+            console.log("Eroare", err);
+            afisareEroare(res, 500);
+        } else {   
+            if (rez.rowCount==0){
+                afisareEroare(res, 404, "Produs inexistent");
+                return;
+            }
+            res.render("pagini/produs", { prod: rez.rows[0] });
         }
     });
 });
