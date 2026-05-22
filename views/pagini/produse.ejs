@@ -58,27 +58,20 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+               <div class="col-md-8">
                     <label class="form-label d-block">Ocazie:</label>
                     <div class="btn-group" role="group">
-                        <input type="checkbox" class="btn-check chk-ocazie" id="chk-casual" value="casual" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="chk-casual">Casual</label>
-
-                        <input type="checkbox" class="btn-check chk-ocazie" id="chk-office" value="office" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="chk-office">Office</label>
-
-                        <input type="checkbox" class="btn-check chk-ocazie" id="chk-petrecere" value="petrecere" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="chk-petrecere">Petrecere</label>
-
-                        <input type="checkbox" class="btn-check chk-ocazie" id="chk-nunta" value="nunta" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="chk-nunta">Nuntă</label>
+                        <% for (let ocazie of locals.ocazii) { %>
+                            <input type="checkbox" class="btn-check chk-ocazie" id="chk-<%- ocazie %>" value="<%- ocazie %>" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="chk-<%- ocazie %>"><%- ocazie.charAt(0).toUpperCase() + ocazie.slice(1) %></label>
+                        <% } %>
                     </div>
-                </div>
+                </div>  //pt bonus
 
                 <div class="col-md-6">
-                    <label class="form-label">Preț maxim: <span id="infoRange" class="fw-bold text-primary">(1000)</span></label>
-                    <input type="range" class="form-range" id="inp-pret" value="1000" min="0" max="1000">
-                </div>
+                    <label class="form-label">Preț maxim: <span id="infoRange" class="fw-bold text-primary">(<%- locals.maxPret %>)</span></label>
+                    <input type="range" class="form-range" id="inp-pret" value="<%- locals.maxPret %>" min="<%- locals.minPret %>" max="<%- locals.maxPret %>">
+                </div> //bonus
 
                 <div class="col-md-6">
                     <div class="form-floating">
@@ -90,12 +83,11 @@
                 <div class="col-md-12">
                     <label class="form-label">Culori NEDORITE (țineți apăsat CTRL):</label>
                     <select id="inp-culori-nedorite" class="form-select" multiple size="3">
-                        <option value="rosu">Roșu</option> <option value="albastru">Albastru</option>
-                        <option value="verde">Verde</option> <option value="negru">Negru</option>
-                        <option value="alb">Alb</option> <option value="bej">Bej</option>
-                        <option value="roz">Roz</option> <option value="galben">Galben</option>
+                        <% for (let cul of locals.culori) { %>
+                            <option value="<%- cul %>"><%- cul.charAt(0).toUpperCase() + cul.slice(1) %></option>
+                        <% } %>
                     </select>
-                </div>
+                </div>  //bonus
 
             </div>
             

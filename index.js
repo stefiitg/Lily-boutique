@@ -187,12 +187,30 @@ app.get ("/produse", function(req, res) {
     if(req.query.tip){
         clauzaWhere=`WHERE categorie='${req.query.tip}'`;
     }
-    client.query(`SELECT * FROM produse_vestimentare ${clauzaWhere}`, function(err, rez){
+   client.query(`SELECT * FROM produse_vestimentare ${clauzaWhere}`, function(err, rez){
         if (err){
             console.log("Eroare", err);
             afisareEroare(res, 500);
         } else {   
-            res.render("pagini/produse", { produse: rez.rows });
+            let produse = rez.rows;
+
+            // --- CALCUL PENTRU BONUS ---
+            // Extragem prețul minim și maxim din baza de date
+            let minPret = produse.length > 0 ? Math.min(...produse.map(p => parseFloat(p.pret))) : 0;
+            let maxPret = produse.length > 0 ? Math.max(...produse.map(p => parseFloat(p.pret))) : 1000;
+            
+            // Extragem o singură dată culorile și ocaziile care există efectiv în DB
+            let culoriUnice = [...new Set(produse.flatMap(p => p.culoare))];
+            let ocaziiUnice = [...new Set(produse.map(p => p.ocazie))];
+            // ---------------------------
+
+            res.render("pagini/produse", { 
+                produse: produse,
+                minPret: minPret,
+                maxPret: maxPret,
+                culori: culoriUnice,
+                ocazii: ocaziiUnice
+            });
         }
     });
 });

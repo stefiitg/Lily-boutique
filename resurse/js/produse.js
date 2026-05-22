@@ -123,6 +123,8 @@ window.onload = function() {
     document.getElementById("resetare").onclick = function() {
         if (confirm("Ești sigur că vrei să resetezi filtrele?")) {
             // Curățăm inputurile
+            document.getElementById("inp-pret").value = 1000;
+            document.getElementById("infoRange").innerHTML = "(1000)";
             document.getElementById("inp-materiale").value = "";
             document.getElementById("inp-materiale").style.border = "";
             document.getElementById("inp-pret").value = 1000;
@@ -138,6 +140,9 @@ window.onload = function() {
 
             let selectMultiplu = document.getElementById("inp-culori-nedorite");
             for (let opt of selectMultiplu.options) opt.selected = false;
+            let sliderPret = document.getElementById("inp-pret");
+           sliderPret.value = sliderPret.max;
+             document.getElementById("infoRange").innerHTML = "(" + sliderPret.max + ")";
 
             // Reafișăm produsele în ordinea inițială
             for (let prod of articoleOriginale) {
