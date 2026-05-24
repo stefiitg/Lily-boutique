@@ -12,6 +12,13 @@ app.set("views", path.join(__dirname, "views"));
 console.log("Folder index.js", __dirname);
 console.log("Folder curent (de lucru)", process.cwd());
 console.log("Cale fisier", __filename);
+// Aici lăsăm expunerea folderului resurse (pentru a putea încărca CSS, imagini etc.)
+app.use("/resurse", express.static(path.join(__dirname, "/resurse")));
+app.use("/dist", express.static(path.join(__dirname, "/node_modules/bootstrap/dist"))); 
+
+global.obGlobal = {
+    obImagini: null
+};
 
 client=new pg.Client({
     database:"tehniciweb",
@@ -87,67 +94,105 @@ function afisareEroare(res, identificator, titlu, text, imagine) {
    res.render("pagini/eroare", dateEroare);
 }
 
+function initImagini(){
+    // Calea corectă indicată de tine către resurse/json
+    var continut = fs.readFileSync(path.join(__dirname, "resurse/json/galerie.json")).toString("utf-8");
+
+    obGlobal.obImagini = JSON.parse(continut);
+    let vImagini = obGlobal.obImagini.imagini;
+    let caleGalerie = obGlobal.obImagini.cale_galerie;
+
+    let caleAbs = path.join(__dirname, caleGalerie);
+    let caleAbsMediu = path.join(caleAbs, "mediu");
+    let caleAbsMic = path.join(caleAbs, "mic");
+
+    // Creăm directoarele dacă nu există
+    if (!fs.existsSync(caleAbsMediu)) fs.mkdirSync(caleAbsMediu);
+    if (!fs.existsSync(caleAbsMic)) fs.mkdirSync(caleAbsMic);
+    
+    for (let imag of vImagini){
+        // Securizare: Luăm proprietatea corectă, indiferent cum e scrisă în JSON
+        let numeFisierSursa = imag.cale_relativa || imag.fisier;
+        
+        if (!numeFisierSursa) {
+            console.log("Avertisment: Imaginea nu are definită calea în JSON!");
+            continue; // Trece la următoarea imagine fără să crape serverul
+        }
+
+        let [numeFis, ext] = numeFisierSursa.split("."); 
+        let caleFisAbs = path.join(caleAbs, numeFisierSursa);
+        let caleFisMediuAbs = path.join(caleAbsMediu, numeFis + ".webp");
+        let caleFisMicAbs = path.join(caleAbsMic, numeFis + ".webp");
+
+        // Procesare Sharp
+        if (!fs.existsSync(caleFisMediuAbs)) {
+            sharp(caleFisAbs).resize(500).webp().toFile(caleFisMediuAbs);
+        }
+        if (!fs.existsSync(caleFisMicAbs)) {
+            sharp(caleFisAbs).resize(300).webp().toFile(caleFisMicAbs);
+        }
+
+        // Mapăm dinamic proprietățile pe obiect pentru a nu strica EJS-ul
+        imag.fisier_mediu = path.join("/", caleGalerie, "mediu", numeFis + ".webp").replace(/\\/g, "/");
+        imag.fisier_mic = path.join("/", caleGalerie, "mic", numeFis + ".webp").replace(/\\/g, "/");
+        imag.fisier_mare = path.join("/", caleGalerie, numeFisierSursa).replace(/\\/g, "/");
+    }
+}
+
+// Apelăm funcția după ce totul este configurat securizat
+initImagini();
+
 // ---------------------------------------------------------
 // 3. FUNCȚIE COMPILARE SCSS -> CSS + BACKUP AUTOMAT
 // ---------------------------------------------------------
-function compileazaScss(caleScss, caleCss) {
-    try {
-        // Stabilim caile absolute pentru input
-        let caleScssAbs = path.isAbsolute(caleScss) ? caleScss : path.join(obGlobal.folderScss, caleScss);
 
-        // Numele fisierului CSS rezultat
-        let numeFisierCss = caleCss ? path.basename(caleCss) : path.basename(caleScssAbs, ".scss") + ".css";
-        
-        // Stabilim calea absoluta pentru output
-        let caleCssAbs = caleCss ? (path.isAbsolute(caleCss) ? caleCss : path.join(obGlobal.folderCss, caleCss)) : path.join(obGlobal.folderCss, numeFisierCss);
+function compileazaScss(caleScss, caleCss){
+    if(!caleCss){
 
-        // Daca fisierul SCSS efectiv nu exista, ne oprim (evitam erori de stergere accidentala)
-        if (!fs.existsSync(caleScssAbs)) return;
+        let numeFisExt=path.basename(caleScss); // "folder1/folder2/a.scss" -> "a.scss"
+        let numeFis=numeFisExt.split(".")[0]   /// "a.scss"  -> ["a","scss"]
+        caleCss=numeFis+".css"; // output: a.css
+    }
+    
+    if (!path.isAbsolute(caleScss))
+        caleScss=path.join(obGlobal.folderScss,caleScss )
+    if (!path.isAbsolute(caleCss))
+        caleCss=path.join(obGlobal.folderCss,caleCss )
+    
+    let caleBackup=path.join(obGlobal.folderBackup, "resurse/css");
+    if (!fs.existsSync(caleBackup)) {
+        fs.mkdirSync(caleBackup,{recursive:true})
+    }
+    
+    // la acest punct avem cai absolute in caleScss si  caleCss
 
-        // --- BACKUP ---
-        let caleBackupDir = path.join(obGlobal.folderBackup, "resurse/css");
-        if (!fs.existsSync(caleBackupDir)) {
-            fs.mkdirSync(caleBackupDir, { recursive: true }); // cream structura de backup daca nu exista
+    let numeFisCss=path.basename(caleCss);
+    if (fs.existsSync(caleCss)){
+        fs.copyFileSync(caleCss, path.join(obGlobal.folderBackup, "resurse/css",numeFisCss ))// +(new Date()).getTime()
+    }
+    rez=sass.compile(caleScss, {"sourceMap":true});
+    fs.writeFileSync(caleCss,rez.css)
+    
+}
+
+
+//la pornirea serverului
+vFisiere=fs.readdirSync(obGlobal.folderScss);
+for( let numeFis of vFisiere ){
+    if (path.extname(numeFis)==".scss"){
+        compileazaScss(numeFis);
+    }
+}
+
+
+fs.watch(obGlobal.folderScss, function(eveniment, numeFis){
+    if (eveniment=="change" || eveniment=="rename"){
+        let caleCompleta=path.join(obGlobal.folderScss, numeFis);
+        if (fs.existsSync(caleCompleta)){
+            compileazaScss(caleCompleta);
         }
-
-        let caleBackupFisier = path.join(caleBackupDir, numeFisierCss);
-        if (fs.existsSync(caleCssAbs)) {
-            // Copiem fisierul vechi in backup inainte sa-l suprascriem
-            fs.copyFileSync(caleCssAbs, caleBackupFisier);
-        }
-
-        // --- COMPILARE ---
-        let rezultat = sass.compile(caleScssAbs);
-        fs.writeFileSync(caleCssAbs, rezultat.css);
-        console.log(`Fisierul ${numeFisierCss} a fost compilat si actualizat cu succes.`);
-    } catch (err) {
-        console.error("Eroare la compilare SCSS:", err.message);
     }
-}
-
-// Ne asiguram ca folderele SCSS si CSS exista la pornire
-if (!fs.existsSync(obGlobal.folderScss)) {
-    fs.mkdirSync(obGlobal.folderScss, { recursive: true });
-}
-if (!fs.existsSync(obGlobal.folderCss)) {
-    fs.mkdirSync(obGlobal.folderCss, { recursive: true });
-}
-
-// Compilare initiala la pornirea serverului (parcurgem folderul SCSS)
-fs.readdirSync(obGlobal.folderScss).forEach(fisier => {
-    if (fisier.endsWith(".scss")) {
-        compileazaScss(fisier);
-    }
-});
-
-// Pândire modificari pe parcurs (Watch)
-fs.watch(obGlobal.folderScss, (eveniment, fisier) => {
-    if (fisier && fisier.endsWith(".scss")) {
-        console.log(`S-a modificat ${fisier}, se recompileaza...`);
-        compileazaScss(fisier);
-    }
-});
-
+})
 // ---------------------------------------------------------
 // 4. MIDDLEWARE-URI ȘI RUTE EXPRESS
 // ---------------------------------------------------------
@@ -162,31 +207,32 @@ app.get("/favicon.ico", (req, res) => {
     res.sendFile(path.join(__dirname, "resurse/imagini/favicon/favicon.ico"));
 });
 
-// Aici lăsăm expunerea folderului resurse (pentru a putea încărca CSS, imagini etc.)
-app.use("/resurse", express.static(path.join(__dirname, "resurse")));
+
 
 // Tratarea explicită a paginii de start
-app.get(['/', '/index', '/home'], (req, res) => {
-    res.render('pagini/index', function(err, rezultatRandare) {
-        if(err) {
-            console.error(err);
-            if(err.message.includes("Failed to lookup view")) {
-                afisareEroare(res, 404);
-            } else {
-                afisareEroare(res, 500); 
-            }
-        } else {
-            res.send(rezultatRandare);
-        }
-    });
+app.get(["/", "/index", "/acasa"], function(req, res) {
+    let ora = new Date().getHours();
+    let timpCurent;
+    
+    if (ora >= 5 && ora < 12) timpCurent = "dimineata";
+    else if (ora >= 12 && ora < 20) timpCurent = "zi";
+    else timpCurent = "noapte";
+
+    let imaginiFiltrate = obGlobal.obImagini.imagini.filter(img => img.timp === timpCurent);
+    let numarImagini = imaginiFiltrate.length;
+    let trunchiat = numarImagini - (numarImagini % 3);
+    imaginiFiltrate = imaginiFiltrate.slice(0, trunchiat);
+
+    res.render("pagini/index", { imaginiGalerie: imaginiFiltrate });
 });
 
 app.get ("/produse", function(req, res) {
     let clauzaWhere="";
     // Aici filtram pe coloana "categorie"
     if(req.query.tip){
-        clauzaWhere=`WHERE categorie='${req.query.tip}'`;
+        clauzaWhere=`WHERE categorie='${req.query.tip}'`;//facem astfel incat sa ramana doar prod din categ<tip mare > cand dam click in meniu
     }
+    
    client.query(`SELECT * FROM produse_vestimentare ${clauzaWhere}`, function(err, rez){
         if (err){
             console.log("Eroare", err);

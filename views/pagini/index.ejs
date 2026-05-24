@@ -23,7 +23,7 @@
                 </hgroup>
               <p>ip:   <%- locals.ipUtilizator%> </p>
                 <p class="intro">Lily boutique ofera o gama larga de articole vestimentare de vara, primavara si iarna realizate din cele mai fine tasaturi si cele mai bune materiale!</p>
-                
+               
                 <div class="intro-oferte"><div>Rochii</div><div>Rochii de ocazie</div><div>Camasi</div><div>Esarfe</div><div>Pantaloni</div></div>
                 <p class="anunt intro"> De acum este disponibila atat livrarea la domiciliu cat si prin easybox</p>
                 <div id="dv-prezentare-1">
@@ -93,7 +93,8 @@
          <img src="/resurse/imagini/rochie_alba_trandafiri.png" alt="Rochie albă cu trandafiri" title="Click pentru imagine mai mare" width="250">
           </a>
             </section>
-            <hr class="hr-sagetute">
+            <hr class="hr-sagetute"> </hr>
+           
             <section id="promotii">
                 <h2>Promoții și oferte</h2>
                 <article>
@@ -404,31 +405,22 @@
         </div>
         <section id="galerie-statica">
             <h2>Galerie</h2>
-            <div id="grid-galerie">
-                <figure>
-                    <div>
-                        <img src="/resurse/imagini/esarfa_rosie.png" alt="esarfa"></div>
-                
-                <figcaption>Haine</figcaption>
-                </figure>
-                <figure>
-                <img src="/resurse/imagini/esarfa_portocalie.png" alt="esarfa">
-                <figcaption>esarfa</figcaption>
-                </figure>
-                <figure>
-                <img src="/resurse/imagini/esarfa_bej.png" alt="esarfa">
-                <figcaption>esarfa</figcaption>
-                </figure>
-                <figure>
-                <img src="/resurse/imagini/bluza_roz.png" alt="bluza">
-                <figcaption>Bluza</figcaption>
-                </figure>
-                <figure>
-                <img src="/resurse/imagini/rochie_alba_trandafiri.png" alt="rochie">
-                <figcaption>Rochie</figcaption>
-                </figure>
-                
-            
+            <div class="galerie-statica">
+                <% for (let img of locals.imaginiGalerie) { %>
+                    <figure>
+                        <picture>
+                            <source media="(max-width: 699px)" srcset="<%- img.fisier_mic %>">
+                            <source media="(max-width: 999px)" srcset="<%- img.fisier_mediu %>">
+                            <img src="<%- img.fisier_mare %>" alt="<%- img.alt ? img.alt : img.nume %>" title="<%- img.descriere %>">
+                        </picture>
+                        <figcaption>
+                            <%- img.descriere %>
+                            <% if (img.licenta) { %>
+                                <br><small class="licenta-text">Atribuire: <%- img.licenta %></small>
+                            <% } %>
+                        </figcaption>
+                    </figure>
+                <% } %>
             </div>
         </section>
         <section id="proces">

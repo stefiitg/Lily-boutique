@@ -15,7 +15,7 @@ window.onload = function() {
     document.getElementById("filtrare").onclick = function() {
         
         // Preluăm valorile din input-uri
-        let inpMaterial = document.getElementById("inp-materiale").value.trim().toLowerCase();
+        let inpMaterial = document.getElementById("inp-materiale").value.trim().toLowerCase();  //.value=valoarea propiu zisa introdusa de ultilizator
         let inpPret = parseFloat(document.getElementById("inp-pret").value);
         let inpNume = document.getElementById("inp-nume").value.trim().toLowerCase();
         let inpDescriere = document.getElementById("inp-descriere").value.trim().toLowerCase();
@@ -88,9 +88,9 @@ window.onload = function() {
             let culori = prod.getElementsByClassName("val-culoare")[0].innerHTML.toLowerCase();
 
             // Construim condițiile
-            let cond1 = (inpMaterial === "" || materiale.includes(inpMaterial));
+            let cond1 = (inpMaterial === "" || materiale.includes(inpMaterial));  // includes verifică dacă textul din inpMaterial se găsește în textul din materiale (dacă utilizatorul a scris ceva și acel ceva există în lista de materiale, trece testul)
             let cond2 = (pret <= inpPret);
-            let cond3 = (inpNume === "" || nume.includes(inpNume));
+            let cond3 = (inpNume === "" || nume.includes(inpNume)); //  
             
             let cond4 = false;
             if (radioEditie === "toate") cond4 = true;
@@ -140,9 +140,10 @@ window.onload = function() {
 
             let selectMultiplu = document.getElementById("inp-culori-nedorite");
             for (let opt of selectMultiplu.options) opt.selected = false;
+            
             let sliderPret = document.getElementById("inp-pret");
            sliderPret.value = sliderPret.max;
-             document.getElementById("infoRange").innerHTML = "(" + sliderPret.max + ")";
+             document.getElementById("infoRange").innerHTML = "(" + sliderPret.max + ")"; //pt butonul de resetare- se reseteaza dinamic odata ce de ex pretul max se schimba
 
             // Reafișăm produsele în ordinea inițială
             for (let prod of articoleOriginale) {
@@ -160,7 +161,7 @@ window.onload = function() {
         let v_produse = Array.from(produse);
 
         v_produse.sort(function(a, b) {
-            let ocazieA = a.getElementsByClassName("val-ocazie")[0].innerHTML.trim();
+            let ocazieA = a.getElementsByClassName("val-ocazie")[0].innerHTML.trim();// a si b elemente de tip article
             let ocazieB = b.getElementsByClassName("val-ocazie")[0].innerHTML.trim();
 
             // Dacă ocaziile sunt diferite, le sortăm alfabetic după ocazie
@@ -169,7 +170,7 @@ window.onload = function() {
             } 
             // Dacă au aceeași ocazie, le sortăm după preț
             else {
-                let pretA = parseFloat(a.getElementsByClassName("val-pret")[0].innerHTML);
+                let pretA = parseFloat(a.getElementsByClassName("val-pret")[0].innerHTML);//a si b elemente de tip article
                 let pretB = parseFloat(b.getElementsByClassName("val-pret")[0].innerHTML);
                 return semn * (pretA - pretB);
             }
@@ -177,7 +178,7 @@ window.onload = function() {
 
         for (let prod of v_produse) {
             gridProduse.appendChild(prod);
-        }
+        }  //adaugarea in container--efectiv afisarea p zisa
     }
 
     document.getElementById("sortCresc").onclick = function() { sorteaza(1); }
@@ -190,7 +191,7 @@ window.onload = function() {
         let produse = document.getElementsByClassName("produs");
         let suma = 0;
         
-        // Calculăm doar ce se vede pe ecran
+        
         for (let prod of produse) {
             if (prod.style.display !== "none") { 
                 let pret = parseFloat(prod.getElementsByClassName("val-pret")[0].innerHTML);

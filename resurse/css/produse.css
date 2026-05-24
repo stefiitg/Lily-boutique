@@ -27,34 +27,3 @@
     color: #8a2be2; /* Mov închis, specific Lily Boutique */
     font-weight: bold;
 }
-
-/* =========================================
-   VARIABILE PENTRU LIGHT/DARK THEME
-   ========================================= */
-:root {
-    --fundal-site: #f8f1e7;       /* Culoarea ta implicită crem */
-    --text-site: #2f2f2f;        /* Textul închis la culoare */
-    --fundal-containere: #ffffff; /* Fundalul alb pentru panoul de filtre/carduri */
-}
-
-/* Când body are clasa .dark, variabilele își schimbă valorile automat */
-body.dark {
-    --fundal-site: #121212;       /* Fundal negru/gri închis */
-    --text-site: #f8f1e7;        /* Textul devine deschis la culoare */
-    --fundal-containere: #1e1e1e; /* Containerele devin gri închis */
-}
-
-/* Aplicăm variabilele pe elementele de bază ale site-ului */
-body {
-    background-color: var(--fundal-site) !important;
-    color: var(--text-site) !important;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Tranziție fină la schimbare */
-}
-
-/* Ne asigurăm că și panoul de filtre sau cardurile de haine reacționează la temă */
-body.dark #panou-filtre, 
-body.dark .produs {
-    background-color: var(--fundal-containere) !important;
-    color: var(--text-site) !important;
-    border: 1px solid #333;
-}

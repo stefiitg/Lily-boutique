@@ -1,0 +1,77 @@
+{
+  "cale_galerie": "/resurse/imagini/",
+  "imagini": [
+    {
+      "cale_relativa": "1.png",
+      "nume": "Rochie elegantă neagră",
+      "descriere": "O rochie perfectă pentru diminețile de primăvară.",
+      "timp": "zi",
+      "alt": "rochie neagra"
+    },
+    {
+      "cale_relativa": "2.png",
+      "nume": "Cămașă office",
+      "descriere": "Cămașă office din bumbac.",
+      "timp": "zi",
+      "licenta": "Imagine de la John Doe sub CC-BY 4.0"
+    },
+    {
+      "cale_relativa": "3.png",
+      "nume": "Bluză casual",
+      "descriere": "Bluză lejeră pentru zi de zi.",
+      "timp": "zi"
+    },
+
+       {
+      "cale_relativa": "4.png",
+      "nume": "Rochie elegantă neagră",
+      "descriere": "O rochie perfectă pentru diminețile de primăvară.",
+      "timp": "dimineata",
+      "alt": "rochie neagra"
+    },
+    {
+      "cale_relativa": "5.png",
+      "nume": "Cămașă office",
+      "descriere": "Cămașă office din bumbac.",
+      "timp": "dimineata",
+      "licenta": "Imagine de la John Doe sub CC-BY 4.0"
+    },
+    {
+      "cale_relativa": "6.png",
+      "nume": "Rochie elegantă neagră",
+      "descriere": "O rochie perfectă pentru diminețile de primăvară.",
+      "timp": "zi",
+      "alt": "rochie neagra"
+    },
+    {
+      "cale_relativa": "7.png",
+      "nume": "Cămașă office",
+      "descriere": "Cămașă office din bumbac.",
+      "timp": "zi",
+      "licenta": "Imagine de la John Doe sub CC-BY 4.0"
+    },
+    {
+      "cale_relativa": "8.png",
+      "nume": "Bluză casual",
+      "descriere": "Bluză lejeră pentru zi de zi.",
+      "timp": "zi"
+    },
+
+       {
+      "cale_relativa": "9.png",
+      "nume": "Rochie elegantă neagră",
+      "descriere": "O rochie perfectă pentru diminețile de primăvară.",
+      "timp": "dimineata",
+      "alt": "rochie neagra"
+    },
+    {
+      "cale_relativa": "10.png",
+      "nume": "Cămașă office",
+      "descriere": "Cămașă office din bumbac.",
+      "timp": "dimineata",
+      "licenta": "Imagine de la John Doe sub CC-BY 4.0"
+    }
+    
+    
+  ]
+}
