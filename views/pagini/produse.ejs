@@ -7,6 +7,7 @@
         <title>Lily Boutique - Produse</title>
         <%- include("../fragmente/head") %>     
         <script type="text/javascript" src="/resurse/js/produse.js"></script>
+        
         <script type="text/javascript" src="/resurse/js/produse-cos.js"></script>
     </head>
     <body>
@@ -66,12 +67,12 @@
                             <label class="btn btn-outline-primary" for="chk-<%- ocazie %>"><%- ocazie.charAt(0).toUpperCase() + ocazie.slice(1) %></label>
                         <% } %>
                     </div>
-                </div>  //pt bonus
+                </div>  /*pt bonus*/
 
                 <div class="col-md-6">
                     <label class="form-label">Preț maxim: <span id="infoRange" class="fw-bold text-primary">(<%- locals.maxPret %>)</span></label>
                     <input type="range" class="form-range" id="inp-pret" value="<%- locals.maxPret %>" min="<%- locals.minPret %>" max="<%- locals.maxPret %>">
-                </div> //bonus
+                </div> /*pt bonus*/
 
                 <div class="col-md-6">
                     <div class="form-floating">
@@ -87,7 +88,7 @@
                             <option value="<%- cul %>"><%- cul.charAt(0).toUpperCase() + cul.slice(1) %></option>
                         <% } %>
                     </select>
-                </div>  //bonus
+                </div>  /*pt bonus*/
 
             </div>
             
@@ -136,7 +137,8 @@
                                 <p class="marime"><b class="eticheta">Mărime:</b> <span class="val-marime"><%- prod.marime%></span></p>
                                 <p class="culoare"><b class="eticheta">Culoare:</b> <span class="val-culoare"><%- String(prod.culoare).replace(/[{}]/g, '').replace(/,/g, ', ') %></span></p>
                                 <p class="materiale"><b class="eticheta">Materiale:</b> <span class="val-materiale"><%- String(prod.materiale).replace(/[{}]/g, '').replace(/,/g, ', ') %></span></p>
-                                
+                                 <p class="ocazie"><b class="eticheta">Ocazie:</b> <span class="val-ocazie"><%- prod.ocazie %></span></p>
+
                                 <% 
                                     let d = new Date(prod.data_adaugare);
                                     let luni = ['Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie'];

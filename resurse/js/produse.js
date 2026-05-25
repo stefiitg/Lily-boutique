@@ -14,15 +14,16 @@ window.onload = function() {
     // ============================================
     document.getElementById("filtrare").onclick = function() {
         
-        // Preluăm valorile din input-uri
-        let inpMaterial = document.getElementById("inp-materiale").value.trim().toLowerCase();  //.value=valoarea propiu zisa introdusa de ultilizator
+        
+        let inpMaterial = document.getElementById("inp-materiale").value.trim().toLowerCase();  
         let inpPret = parseFloat(document.getElementById("inp-pret").value);
         let inpNume = document.getElementById("inp-nume").value.trim().toLowerCase();
         let inpDescriere = document.getElementById("inp-descriere").value.trim().toLowerCase();
         let radioEditie = document.querySelector('input[name="gr_rad_editie"]:checked').value;
         let inpCategorie = document.getElementById("inp-categorie").value.toLowerCase();
         
-        // Citim checkbox-urile pentru ocazie
+        
+        
         let checkboxOcazii = document.getElementsByClassName("chk-ocazie");
         let ocaziiBifate = [];
         for (let chk of checkboxOcazii) {
@@ -45,14 +46,14 @@ window.onload = function() {
         if (/\d/.test(inpMaterial)) {
             alert("Eroare: Câmpul material nu trebuie să conțină cifre!");
             document.getElementById("inp-materiale").style.border = "2px solid red";
-            return; // Oprește funcția
+            return; 
         }
 
        let inpDescriereObj = document.getElementById("inp-descriere");
         
-        // Dacă este invalid, folosim clasa Bootstrap "is-invalid"
+    
         if (inpDescriere.includes("<") || inpDescriere.includes(">")) {
-            inpDescriereObj.classList.add("is-invalid");
+            inpDescriereObj.classList.add("is-invalid"); //clasa bootstrap isinvalid
             alert("Eroare: Descrierea conține caractere nepermise!");
             return;
         } else {
@@ -72,12 +73,14 @@ window.onload = function() {
     }
         // ----------------
 
-        // Parcurgem produsele ca în codul profului
+    
         let produse = document.getElementsByClassName("produs");
         for (let prod of produse) {
-            prod.style.display = "none"; // Ascundem tot la început
+            prod.style.display = "none"; 
+            
+            // Ascundem tot la început
 
-            // Preluăm datele de pe cardul produsului
+            
             let nume = prod.getElementsByClassName("val-nume")[0].innerHTML.trim().toLowerCase();
             let pret = parseFloat(prod.getElementsByClassName("val-pret")[0].innerHTML);
             let materiale = prod.getElementsByClassName("val-materiale")[0].innerHTML.toLowerCase();
@@ -87,10 +90,10 @@ window.onload = function() {
             let categorie = prod.getElementsByClassName("val-categorie")[0].innerHTML.trim().toLowerCase();
             let culori = prod.getElementsByClassName("val-culoare")[0].innerHTML.toLowerCase();
 
-            // Construim condițiile
-            let cond1 = (inpMaterial === "" || materiale.includes(inpMaterial));  // includes verifică dacă textul din inpMaterial se găsește în textul din materiale (dacă utilizatorul a scris ceva și acel ceva există în lista de materiale, trece testul)
+            // condițiile
+            let cond1 = (inpMaterial === "" || materiale.includes(inpMaterial));                                                                   // includes verifică dacă textul din inpMaterial se găsește în textul din materiale (dacă utilizatorul a scris ceva și acel ceva există în lista de materiale, trece testul)
             let cond2 = (pret <= inpPret);
-            let cond3 = (inpNume === "" || nume.includes(inpNume)); //  
+            let cond3 = (inpNume === "" || nume.includes(inpNume));   
             
             let cond4 = false;
             if (radioEditie === "toate") cond4 = true;
@@ -103,7 +106,7 @@ window.onload = function() {
             
             // Verificăm culorile nedorite (dacă produsul are o culoare pe care am bifat-o)
             let cond8 = true;
-            let arrayCulori = culori.split(","); // spargem textul "alb, rosu" intr-un vector
+            let arrayCulori = culori.split(","); 
             for (let cul of arrayCulori) {
                 if (culoriNedorite.includes(cul.trim())) {
                     cond8 = false; // Dacă o găsim, pică testul
@@ -143,7 +146,7 @@ window.onload = function() {
             
             let sliderPret = document.getElementById("inp-pret");
            sliderPret.value = sliderPret.max;
-             document.getElementById("infoRange").innerHTML = "(" + sliderPret.max + ")"; //pt butonul de resetare- se reseteaza dinamic odata ce de ex pretul max se schimba
+             document.getElementById("infoRange").innerHTML = "(" + sliderPret.max + ")";                                                          //pt butonul de resetare- se reseteaza dinamic odata ce de ex pretul max se schimba
 
             // Reafișăm produsele în ordinea inițială
             for (let prod of articoleOriginale) {
@@ -164,11 +167,11 @@ window.onload = function() {
             let ocazieA = a.getElementsByClassName("val-ocazie")[0].innerHTML.trim();// a si b elemente de tip article
             let ocazieB = b.getElementsByClassName("val-ocazie")[0].innerHTML.trim();
 
-            // Dacă ocaziile sunt diferite, le sortăm alfabetic după ocazie
+            
             if (ocazieA !== ocazieB) {
                 return semn * ocazieA.localeCompare(ocazieB);
             } 
-            // Dacă au aceeași ocazie, le sortăm după preț
+            // Dacă au aceeași ocazie:
             else {
                 let pretA = parseFloat(a.getElementsByClassName("val-pret")[0].innerHTML);//a si b elemente de tip article
                 let pretB = parseFloat(b.getElementsByClassName("val-pret")[0].innerHTML);

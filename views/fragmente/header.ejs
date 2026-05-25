@@ -1,5 +1,5 @@
 <header id="top">
-       
+        <script type="text/javascript" src="/resurse/js/tema.js"></script>
         <h1> Lily boutique<i class="fa-solid fa-martini-glass"></i></h1>
          <img src="/resurse/imagini/sigla.png" alt="single"/>
        <nav class="nav-principal">
@@ -68,46 +68,3 @@
         <i id="icon-tema" class="fa-solid fa-sun"></i>
     </button>
        </header>
-<script>
-    // PASUL A: Verificăm INSTANT în localStorage înainte ca pagina să se randeze complet.
-    // Acest bloc previne acel "flash alb" deranjant dacă utilizatorul avea setată tema dark.
-    if (localStorage.getItem("tema") === "dark") {
-        document.body.classList.add("dark");
-    }
-
-    // PASUL B: Logica pentru buton, executată după ce s-a încărcat HTML-ul
-    window.addEventListener("DOMContentLoaded", function() {
-        const btnTema = document.getElementById("btn-tema");
-        const iconTema = document.getElementById("icon-tema");
-
-        // Funcție care schimbă iconița grafic: soare pentru light, lună pentru dark
-        function actualizeazaIconita() {
-            if (document.body.classList.contains("dark")) {
-                iconTema.classList.remove("fa-sun");
-                iconTema.classList.add("fa-moon");
-            } else {
-                iconTema.classList.remove("fa-moon");
-                iconTema.classList.add("fa-sun");
-            }
-        }
-
-        // Rulăm funcția o dată la încărcarea paginii pentru a seta iconița corectă
-        actualizeazaIconita();
-
-        // Evenimentul de click pe buton
-        btnTema.onclick = function() {
-            // Toggle adaugă clasa dacă nu există, sau o șterge dacă există
-            document.body.classList.toggle("dark");
-
-            // Salvăm opțiunea utilizatorului în localStorage ca să fie ținută minte
-            if (document.body.classList.contains("dark")) {
-                localStorage.setItem("tema", "dark");
-            } else {
-                localStorage.setItem("tema", "light");
-            }
-
-            // Actualizăm și iconița vizuală de pe buton
-            actualizeazaIconita();
-        };
-    });
-</script>

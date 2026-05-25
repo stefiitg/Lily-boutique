@@ -818,7 +818,7 @@ main a[href^="http"]:hover::before {
     transform: rotate(15deg) scaleX(-1);
     transition: color 0.4s ease;
 }
-/*scale(-1) il face in oglinda*/
+
 
 .container-reflexie:hover .text-original,
 .container-reflexie:hover .text-reflectat {
@@ -834,10 +834,10 @@ hr.hr-sagetute {
     margin: 2rem 0; 
     background-image: 
         linear-gradient(45deg, transparent 35%, var(--culoare-contur) 35%, var(--culoare-contur) 65%, transparent 65%),
-        linear-gradient(-45deg, transparent 35%, var(--culoare-contur) 35%, var(--culoare-contur) 65%, transparent 65%);
+       linear-gradient(-45deg, transparent 35%, var(--culoare-contur) 35%, var(--culoare-contur) 65%, transparent 65%);
     background-size: 20px 10px; 
     background-position: 0 0, 0 100%; 
-    background-repeat: repeat-x;
+   background-repeat: repeat-x;
 }
 
 
@@ -935,10 +935,10 @@ hr.hr-sagetute {
    ========================================= */
 /* Această regulă este citită DOAR când JS-ul adaugă clasa "dark" pe body */
 body.dark {
-    /* Suprascriem variabilele cu nuanțe de noapte */
-    --culoare-fundal: #1a1a1a;       /* Fundal negru/gri foarte închis */
-    --culoare-secundara: #2a2a2a;    /* Un gri puțin mai deschis pentru cutii/carduri */
-    --culoare-contur: #d1c4e9;       /* Un mov mai deschis ca să fie vizibil pe negru */
-    --culoare-text: #f1f1f1;         /* Text alb/gri deschis */
-    --culoare-highlight: #e8c95a;    /* Un auriu mai aprins (opțional) */
+   
+    --culoare-fundal: #1a1a1a;      
+    --culoare-secundara: #2a2a2a;    
+    --culoare-contur: #d1c4e9;       
+    --culoare-text: #480f48;         
+    --culoare-highlight: #e8c95a;    
 }

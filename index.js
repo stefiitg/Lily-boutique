@@ -149,9 +149,9 @@ initImagini();
 function compileazaScss(caleScss, caleCss){
     if(!caleCss){
 
-        let numeFisExt=path.basename(caleScss); // "folder1/folder2/a.scss" -> "a.scss"
-        let numeFis=numeFisExt.split(".")[0]   /// "a.scss"  -> ["a","scss"]
-        caleCss=numeFis+".css"; // output: a.css
+        let numeFisExt=path.basename(caleScss); 
+        let numeFis=numeFisExt.split(".")[0]   
+        caleCss=numeFis+".css"; 
     }
     
     if (!path.isAbsolute(caleScss))
@@ -168,7 +168,7 @@ function compileazaScss(caleScss, caleCss){
 
     let numeFisCss=path.basename(caleCss);
     if (fs.existsSync(caleCss)){
-        fs.copyFileSync(caleCss, path.join(obGlobal.folderBackup, "resurse/css",numeFisCss ))// +(new Date()).getTime()
+        fs.copyFileSync(caleCss, path.join(obGlobal.folderBackup, "resurse/css",numeFisCss ))
     }
     rez=sass.compile(caleScss, {"sourceMap":true});
     fs.writeFileSync(caleCss,rez.css)
