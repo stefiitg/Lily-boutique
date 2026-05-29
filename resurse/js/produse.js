@@ -181,9 +181,9 @@ window.onload = function() {
 
         for (let prod of v_produse) {
             gridProduse.appendChild(prod);
-        }  //adaugarea in container--efectiv afisarea p zisa
+        } 
     }
-
+    //adaugarea in container--efectiv afisarea p zisa
     document.getElementById("sortCresc").onclick = function() { sorteaza(1); }
     document.getElementById("sortDescresc").onclick = function() { sorteaza(-1); }
 
