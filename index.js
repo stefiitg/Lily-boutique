@@ -240,22 +240,46 @@ app.get ("/produse", function(req, res) {
         } else {   
             let produse = rez.rows;
 
-            // --- CALCUL PENTRU BONUS ---
-            // Extragem prețul minim și maxim din baza de date
+            
+           // --- CALCUL PENTRU BONUS ---
             let minPret = produse.length > 0 ? Math.min(...produse.map(p => parseFloat(p.pret))) : 0;
             let maxPret = produse.length > 0 ? Math.max(...produse.map(p => parseFloat(p.pret))) : 1000;
-            
-            // Extragem o singură dată culorile și ocaziile care există efectiv în DB
-            let culoriUnice = [...new Set(produse.flatMap(p => p.culoare))];
-            let ocaziiUnice = [...new Set(produse.map(p => p.ocazie))];
-            // ---------------------------
+                                                                                                                                                    //map selecteaza doar ce are prop din paranteza
+        
+            let culoriToate = produse.flatMap(p => {
+                  return String(p.culoare)
+                     .replace(/[{}]/g, '')  
+                     .split(',')            
+                     .map(c => c.trim());   
+                });
 
+                let materialeToate = produse.flatMap(p => {
+                return String(p.materiale)
+                .replace(/[{}]/g, '')
+                 .split(',')
+                 .map(m => m.trim());
+            });
+            
+       
+            let culoriUnice = [...new Set(culoriToate)];
+            let ocaziiUnice = [...new Set(produse.map(p => p.ocazie))];
+            let materialeUnice = [...new Set(materialeToate)];
+            let editiiUnice = [...new Set(produse.map(p => p.editie_limitata))];
+
+            let categoriiUnice = [...new Set(produse.map(p => p.categorie))];
+
+            // ---------------------------
+            let maxLgDescriere = produse.length > 0 ? Math.max(...produse.map(p => p.descriere.length)) : 100;
             res.render("pagini/produse", { 
                 produse: produse,
                 minPret: minPret,
                 maxPret: maxPret,
                 culori: culoriUnice,
-                ocazii: ocaziiUnice
+                ocazii: ocaziiUnice,
+                materiale: materialeUnice, 
+                editii: editiiUnice  , 
+                maxLgDescriere: maxLgDescriere,
+                categorii: categoriiUnice     
             });
         }
     });

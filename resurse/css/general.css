@@ -939,6 +939,15 @@ body.dark {
     --culoare-fundal: #1a1a1a;      
     --culoare-secundara: #2a2a2a;    
     --culoare-contur: #d1c4e9;       
-    --culoare-text: #480f48;         
+    --culoare-text: #624dc1;         
     --culoare-highlight: #e8c95a;    
+}
+
+/* Tema 2: Pastel (A treia temă pentru Bonus 2) */
+body.pastel {
+    --culoare-fundal: #fce4ec; /* un roz foarte pal */
+    --culoare-secundara: #f8bbd0;
+    --culoare-contur: #d81b60;
+    --culoare-text: #4a148c;
+    --culoare-highlight: #c2185b;
 }

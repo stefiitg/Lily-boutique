@@ -19,8 +19,14 @@
             <div class="row g-3">
                 
                 <div class="col-md-4">
-                    <label class="form-label">Caută material:</label>
-                    <input type="text" class="form-control" id="inp-materiale" placeholder="Ex: bumbac">
+                     <label class="form-label">Caută material:</label>
+                            <input list="lista-materiale" type="text" class="form-control" id="inp-materiale" placeholder="Ex: bumbac">
+    
+                              <datalist id="lista-materiale">
+                                <% for (let mat of locals.materiale) { %>
+                                  <option value="<%- mat %>">
+                                  <% } %>
+                     </datalist>
                 </div>
 
                 <div class="col-md-4">
@@ -33,31 +39,33 @@
                     </datalist>
                 </div>
 
-                <div class="col-md-4">
-                    <label class="form-label">Categorie:</label>
-                    <select id="inp-categorie" class="form-select">
-                        <option id="sel-toate" selected value="toate">Toate</option>
-                        <% for (let opt of locals.optiuniMeniu) { %>
-                            <option value="<%- opt %>"><%- opt.charAt(0).toUpperCase() + opt.slice(1) %></option>
-                        <% } %>
-                    </select>
-                </div>
+               <div class="col-md-4">
+    <label class="form-label">Categorie:</label>
+    <select id="inp-categorie" class="form-select">
+        <option id="sel-toate" selected value="toate">Toate</option>
+        
+        <% for (let categ of locals.categorii) { %>
+            <option value="<%- categ %>">
+                <%- categ.charAt(0).toUpperCase() + categ.slice(1) %>
+            </option>
+        <% } %>
+    </select>
+</div>
 
-                <div class="col-md-4">
-                    <label class="form-label d-block">Ediție limitată:</label>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gr_rad_editie" id="radToate" value="toate" checked>
-                        <label class="form-check-label" for="radToate">Toate</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gr_rad_editie" id="radDa" value="da">
-                        <label class="form-check-label" for="radDa">Da</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gr_rad_editie" id="radNu" value="nu">
-                        <label class="form-check-label" for="radNu">Nu</label>
-                    </div>
-                </div>
+               <div class="col-md-4">
+                        <label class="form-label d-block">Ediție limitată:</label>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gr_rad_editie" id="radToate" value="toate" checked>
+                           <label class="form-check-label" for="radToate">Toate</label>
+                  </div>
+    
+                            <% for (let editie of locals.editii) { %>
+                          <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gr_rad_editie" id="rad<%- editie %>" value="<%- editie ? 'da' : 'nu' %>">
+                           <label class="form-check-label" for="rad<%- editie %>"><%- editie ? 'Da' : 'Nu' %></label>
+                            </div>
+                             <% } %>
+                                </div>
 
                <div class="col-md-8">
                     <label class="form-label d-block">Ocazie:</label>
@@ -75,10 +83,10 @@
                 </div> /*pt bonus*/
 
                 <div class="col-md-6">
-                    <div class="form-floating">
-                        <textarea class="form-control" id="inp-descriere" placeholder="Caută în descriere" style="height: 60px"></textarea>
-                        <label for="inp-descriere">Caută în descrierea produsului...</label>
-                    </div>
+                     <div class="form-floating">
+                     <textarea class="form-control" id="inp-descriere" maxlength="<%- locals.maxLgDescriere %>" placeholder="Caută în descriere..." style="height: 60px"></textarea>
+                     <label for="inp-descriere">Caută în descrierea produsului...</label>
+                 </div>
                 </div>
 
                 <div class="col-md-12">

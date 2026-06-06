@@ -65,6 +65,21 @@
 </nav>
 
 <button id="btn-tema" style="background: none; border: 2px solid var(--text-site); color: var(--text-site); padding: 5px 10px; border-radius: 5px; cursor: pointer; float: right; margin: 15px;">
-        <i id="icon-tema" class="fa-solid fa-sun"></i>
+       <div class="btn-group my-3" role="group" aria-label="Selector Temă">
+    <input type="radio" class="btn-check" name="radio_tema" id="tema-light" value="light" autocomplete="off" checked>
+    <label class="btn btn-outline-secondary" for="tema-light">
+        <i class="bi bi-brightness-high"></i> Light
+    </label>
+
+    <input type="radio" class="btn-check" name="radio_tema" id="tema-dark" value="dark" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="tema-dark">
+        <i class="bi bi-moon-stars"></i> Dark
+    </label>
+
+    <input type="radio" class="btn-check" name="radio_tema" id="tema-pastel" value="pastel" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="tema-pastel">
+        <i class="bi bi-flower1"></i> Pastel
+    </label>
+</div>
     </button>
        </header>

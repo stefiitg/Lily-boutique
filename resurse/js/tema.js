@@ -1,41 +1,37 @@
 
+let temaCurenta = localStorage.getItem("tema") || "light"; 
+
+if (temaCurenta !== "light") {
+    document.body.classList.add(temaCurenta);
+}
+
+
+window.addEventListener("DOMContentLoaded", function() {
     
-    if (localStorage.getItem("tema") === "dark") {
-        document.body.classList.add("dark");
-    }
-
     
-    window.addEventListener("DOMContentLoaded", function() {
-        const btnTema = document.getElementById("btn-tema");
-        const iconTema = document.getElementById("icon-tema");
+    let radioBifat = document.querySelector(`input[name="radio_tema"][value="${temaCurenta}"]`);
+    if (radioBifat) {
+        radioBifat.checked = true;
+    }                                                                                                                                     //bifam vizual elementul din radio cu value = tema curenta
 
-
-        function actualizeazaIconita() {
-            if (document.body.classList.contains("dark")) {
-                iconTema.classList.remove("fa-sun");
-                iconTema.classList.add("fa-moon");
-            } else {
-                iconTema.classList.remove("fa-moon");
-                iconTema.classList.add("fa-sun");
-            }
-        }
-
-        
-        actualizeazaIconita();
-
-        
-        btnTema.onclick = function() {
-        
-            document.body.classList.toggle("dark");
-
+    let radioButtons = document.querySelectorAll('input[name="radio_tema"]');
+    
+    for (let radio of radioButtons) {
+        radio.addEventListener("change", function() {                                                                                     //ascultam schimbarile la fiecare buton
             
-            if (document.body.classList.contains("dark")) {
-                localStorage.setItem("tema", "dark");
-            } else {
-                localStorage.setItem("tema", "light");
+            //curatam
+            document.body.classList.remove("dark", "pastel");
+            
+          
+            let temaNoua = this.value;
+            
+            
+            if (temaNoua !== "light") {
+                document.body.classList.add(temaNoua);
             }
-
-            // Actualizăm și iconița vizuală de pe buton
-            actualizeazaIconita();
-        };
-    });
+            
+           
+            localStorage.setItem("tema", temaNoua);
+        });
+    }
+});
